@@ -225,9 +225,38 @@ nav {
 
 .project-card img {
     width: 100%;
+    height: 200px; /* Set a fixed height for all project images */
+    object-fit: cover; /* This will crop the image to fit without distorting it */
     border-radius: 8px;
     margin-bottom: 1rem;
     border: 1px solid var(--border-color);
+}
+
+/* Wrapper for images that need a zoom/scale effect. The wrapper
+   defines the clipping box (overflow:hidden) and preserves border-radius. */
+.img-zoom-wrapper {
+    width: 100%;
+    height: 200px; /* match project-card img height */
+    overflow: hidden; /* clip the scaled image inside this box */
+    border-radius: 8px; /* ensure same rounding as images */
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+/* Apply these styles to both images and videos inside the wrapper */
+.img-zoom-wrapper img, .img-zoom-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* keep the image cover behavior */
+    object-position: bottom; /* Aligns the image content to the top of the container, preventing vertical shift */
+    transform: scale(var(--initial-scale, 1.4)); /* scale the image */
+    transform-origin: center center;
+    transition: transform 0.4s ease;
+}
+
+.img-zoom-wrapper:hover img, .img-zoom-wrapper:hover video {
+    /* slightly reduce scale on hover to create a subtle effect */
+    transform: scale(var(--hover-scale, 1.25));
 }
 
 .project-tags {

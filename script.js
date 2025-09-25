@@ -53,4 +53,23 @@ document.addEventListener('DOMContentLoaded', () => {
             lightbox.style.display = 'none';
         }
     });
+
+    // Video on hover functionality for project cards
+    const hoverContainers = document.querySelectorAll('.video-on-hover');
+
+    hoverContainers.forEach(container => {
+        const video = container.querySelector('video');
+        if (!video) return; // Safety check
+
+        container.addEventListener('mouseenter', () => {
+            // The play() method returns a promise, which can cause an error in some browsers if interrupted.
+            // We catch it to prevent console noise.
+            video.play().catch(error => {});
+        });
+
+        container.addEventListener('mouseleave', () => {
+            video.pause();
+            video.currentTime = 0; // Reset video to the beginning
+        });
+    });
 });

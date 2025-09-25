@@ -73,7 +73,19 @@
             <h2>My Projects</h2>
             <div class="project-grid">
                 <div class="project-card">
-                    <img src="content/get big man.png" alt="Project 1 Screenshot">
+                    <!-- Add 'gif-on-hover' class and data attributes for the image paths -->
+                    <div
+                        class="img-zoom-wrapper video-on-hover"
+                        style="--initial-scale: 1.1; --hover-scale: 1;"
+                    >
+                        <video 
+                            poster="content/getBigMan.png" 
+                            src="content/getBigMan.mp4" 
+                            loop 
+                            muted 
+                            playsinline
+                        ></video>
+                    </div>
                     <h3>Get Big, Man</h3>
                     <p>Winner of HackKU 25 "Best Beginner Project." A 2D roguelike to help rid "gymtimidation." Made by four college freshmen stuck in a room for 36 hours surviving on Redbull.</p>
                     <div class="project-tags">
@@ -87,17 +99,23 @@
                     </div>
                 </div>
                 <div class="project-card">
-                    <img src="https://via.placeholder.com/400x250" alt="Project 2 Screenshot">
-                    <h3>Project Title Two</h3>
-                    <p>A short, snappy description of your project. Explain the problem it solves.</p>
+                    <!-- zoom in on caleb: wrap the image so the scaled image can be clipped -->
+                    <div 
+                        class="img-zoom-wrapper"
+                        style="--initial-scale: 1.5; --hover-scale: 1.25;"
+                    >
+                        <img id="zoom" src="content/chillshoot-092_c8a28f9d-3fa9-4300-b37c-0ab2575c7b46.jpg" alt="chilltime">
+                    </div>
+                    <h3>chilltime clothing</h3>
+                    <p>My clothing brand using Shopify and custom CSS, HTML, and JS.</p>
                     <div class="project-tags">
-                        <span>Python</span>
-                        <span>Flask</span>
-                        <span>Firebase</span>
+                        <span>CSS</span>
+                        <span>HTML</span>
+                        <span>JS</span>
+                        <span>Shopify</span>
                     </div>
                     <div class="project-links">
-                        <a href="#" target="_blank" class="btn btn-secondary">Live Demo</a>
-                        <a href="#" target="_blank" class="btn-icon" aria-label="Source Code"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://chilltimeclothing.com" target="_blank" class="btn btn-secondary">Live Demo</a>
                     </div>
                 </div>
                  <div class="project-card">
@@ -120,7 +138,7 @@
         <section id="contact" class="contact">
             <h2>Get In Touch</h2>
             <p>I'm currently looking for new opportunities and my inbox is always open. Whether you have a question or just want to say hi, I'll get back to you!</p>
-            <a href="mailto:[mrlucasroot@gmail.com]" class="btn btn-primary">Email</a>
+            <a href="mailto:mrlucasroot@gmail.com" class="btn btn-primary">Email</a>
         </section>
     </main>
 
