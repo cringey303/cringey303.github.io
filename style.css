@@ -83,9 +83,19 @@ nav {
 }
 
 .nav-logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: white;
+    display: flex; /* Ensures the image is aligned properly */
+    align-items: left;
+}
+
+.nav-logo svg {
+    height: 40px; /* Adjust this value to resize your logo */
+    width: auto;  /* Maintains the aspect ratio */
+    fill: var(--accent-color); /* Set the default color */
+    transition: fill 0.3s ease;
+}
+
+.nav-logo:hover svg {
+    fill: var(--accent-color-hover); /* Set the hover color */
 }
 
 .nav-links {
@@ -148,11 +158,51 @@ nav {
 
 /* --- About Section --- */
 .about-container {
-    max-width: 800px;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1000px;
     margin: 0 auto;
-    text-align: center;
 }
 
+.about-text {
+    flex: 1; /* Allows the text block to take up remaining space */
+}
+
+.about-images {
+    flex: 0 0 40%; /* Sets the image container to be about 40% of the width */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.about-images img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80%;
+        }
+.about-images img.lightbox-trigger {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.about-images img.lightbox-trigger:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        
 /* --- Projects Section --- */
 .project-grid {
     display: grid;

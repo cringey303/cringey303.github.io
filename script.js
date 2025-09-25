@@ -32,4 +32,25 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(section => {
         observer.observe(section);
     });
+
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+
+    lightboxTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            lightbox.style.display = 'flex'; // Use flex to center content
+            lightboxImg.src = trigger.src;
+        });
+    });
+
+    // Close lightbox when clicking on the background
+    lightbox.addEventListener('click', e => {
+        // We only want to close if the click is on the dark background (the lightbox itself)
+        // and not on the image inside it.
+        if (e.target !== lightboxImg) {
+            lightbox.style.display = 'none';
+        }
+    });
 });
