@@ -248,7 +248,7 @@ nav {
     width: 100%;
     height: 100%;
     object-fit: cover; /* keep the image cover behavior */
-    object-position: bottom; /* Aligns the image content to the top of the container, preventing vertical shift */
+    object-position: top; /* Aligns the image content to the top of the container, preventing vertical shift */
     transform: scale(var(--initial-scale, 1.4)); /* scale the image */
     transform-origin: center center;
     transition: transform 0.4s ease;

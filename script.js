@@ -64,12 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
         container.addEventListener('mouseenter', () => {
             // The play() method returns a promise, which can cause an error in some browsers if interrupted.
             // We catch it to prevent console noise.
+            video.currentTime = 49;
             video.play().catch(error => {});
         });
 
         container.addEventListener('mouseleave', () => {
-            video.pause();
-            video.currentTime = 0; // Reset video to the beginning
+            video.load();
         });
     });
 });
