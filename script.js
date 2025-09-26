@@ -72,4 +72,47 @@ document.addEventListener('DOMContentLoaded', () => {
             video.load();
         });
     });
+
+    // --- Cursor link hover effect ---
+    const interactiveElements = document.querySelectorAll('a, .btn, .lightbox-trigger, .nav-logo');
+    const body = document.querySelector('body');
+
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            body.classList.add('link-hovered');
+        });
+        el.addEventListener('mouseleave', () => {
+            body.classList.remove('link-hovered');
+        });
+    });
 });
+
+// --- Custom Cursor Logic ---
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorCircle = document.querySelector('.cursor-circle');
+
+let dotX = 0, dotY = 0;
+let circleX = 0, circleY = 0;
+
+window.addEventListener('mousemove', (e) => {
+    dotX = e.clientX;
+    dotY = e.clientY;
+});
+
+const animateCursor = () => {
+    // Move dot instantly
+    cursorDot.style.left = `${dotX}px`;
+    cursorDot.style.top = `${dotY}px`;
+
+    // Move circle with a delay (easing/lerping)
+    // The closer the divisor (e.g., 8), the faster the trail
+    circleX += (dotX - circleX) / 8;
+    circleY += (dotY - circleY) / 8;
+
+    cursorCircle.style.left = `${circleX}px`;
+    cursorCircle.style.top = `${circleY}px`;
+
+    requestAnimationFrame(animateCursor);
+};
+
+animateCursor();
