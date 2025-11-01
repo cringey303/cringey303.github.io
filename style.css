@@ -383,3 +383,16 @@ body.link-hovered .cursor-circle {
     transform: translate(-50%, -50%) scale(1.5);
     border-width: 1px;
 }
+
+/* Mobile */
+
+@media (max-width: 768px) {
+    .cursor-circle, 
+    .cursor-circle {
+        display: none;
+    }
+
+    body, a, .btn, .about-images img.lightbox-trigger {
+        cursor: auto;
+    }
+}
