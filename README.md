@@ -1,9 +1,9 @@
-Personal Portfolio Website - Lucas Root
+# Personal Portfolio Website - Lucas Root
 
 This repository contains the source code my portfolio website live at lucasroot.org, a simple one-page website showcasing my projects and a little about me.
 
 
-Features
+## Features
 
 This site is built with vanilla HTML, CSS, and JavaScript to be lightweight and demonstrate modern web development techniques.
 
@@ -17,7 +17,7 @@ This site is built with vanilla HTML, CSS, and JavaScript to be lightweight and 
 
     Navigation: An IntersectionObserver is used to automatically highlight the navigation link of the section currently in the viewport.
 
-Tech Stack
+## Tech Stack
 
     Frontend: HTML5, CSS3, JavaScript
 
@@ -25,7 +25,7 @@ Tech Stack
 
     Domain: lucasroot.org
 
-Project Structure
+## Project Structure
 
     index.html: The only HTML file containing the site structure.
 
@@ -36,11 +36,3 @@ Project Structure
     content/: All media assets (images, videos, resume PDF).
 
     snake/: Contains a simple snake game (unfinished).
-
-Projects Showcased
-
-    Get Big, Man: A 2D roguelike game developed in Unity/C# that won "Best Beginner Project" at HackKU 2025.
-
-    chilltime clothing: A personal clothing brand built on Shopify, featuring custom HTML, CSS, and JavaScript.
-
-    Sample Web Page: A university lab project demonstrating proficiency in PHP, CSS, HTML, and JavaScript.
