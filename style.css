@@ -388,7 +388,7 @@ body.link-hovered .cursor-circle {
 
 @media (max-width: 768px) {
     .cursor-circle, 
-    .cursor-circle {
+    .cursor-dot {
         display: none;
     }
 
