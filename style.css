@@ -386,7 +386,38 @@ body.link-hovered .cursor-circle {
     border-width: 1px;
 }
 
-/* Mobile */
+/* --- Custom Scrollbar --- */
+
+/* for webkit browsers */
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-color);
+}
+
+/* for firefox */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) var(--bg-color);
+}
+
+/* For internet explorer and old edge */
+body {
+    -ms-overflow-style: auto;
+}
+
+/* -----Mobile----- */
 
 @media (max-width: 768px) {
     .cursor-circle, 
