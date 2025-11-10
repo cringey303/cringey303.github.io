@@ -87,6 +87,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// --- Scroll Progress Bar Logic ---
+window.onscroll = function() {
+    scrollProgress();
+};
+
+function scrollProgress() {
+    //get current scroll position
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    
+    // get total scrollable height and viewport height
+    var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    var viewportHeight = document.documentElement.clientHeight
+
+    //calculate percentage scrolled
+    var scrolled = (scrollTop/(scrollHeight - viewportHeight)) * 100;
+
+    //set width of progress bar
+    document.getElementById("progressBar").style.width = scrolled + "%"
+}
 // --- Custom Cursor Logic ---
 const cursorDot = document.querySelector('.cursor-dot');
 const cursorCircle = document.querySelector('.cursor-circle');
