@@ -210,7 +210,11 @@
             <p>I'm currently looking for new opportunities and my inbox is always open. Whether you have a question or just want to say hi, I'll get back to you!</p>
             <div class="hero-buttons">
                 <a href="mailto:mrlucasroot@gmail.com" class="btn btn-primary">Email</a>
-                <a href="https://calendly.com/mrlucasroot" target="_blank" class="btn btn-secondary">Calendly</a>
+                <!-- Calendly link widget begin -->
+                <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+                <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+                <a href="" class="btn btn-secondary" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/mrlucasroot/new-meeting?hide_event_type_details=1&hide_gdpr_banner=1&hide_landing_page_details=1&hide_gdpr_banner=1&background_color=121212&text_color=e0e0e0&primary_color=007bff'});return false;">Meet with me</a>
+                <!-- Calendly link widget end -->
             </div>
         </section>
     </main>
