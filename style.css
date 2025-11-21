@@ -83,7 +83,6 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
     margin: 0 auto;
     padding: 1rem 2rem;
 }
@@ -170,16 +169,45 @@ nav {
 
 /* --- Hero Section --- */
 .hero {
+    position: relative;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     text-align: center;
+    padding: 0 5%;
 }
-
+.hero-content {
+    z-index: 2;
+}
 .hero-content .subtitle { font-size: 1.5rem; color: var(--primary-text-color); font-weight: 500; }
-.hero-content .description { max-width: 600px; margin: 1rem auto 2rem; }
+.hero-content .description { max-width: 600px; }
 
+/* Location */
+.location-wrapper {
+    position: absolute;
+    top: 83px;
+    left: 2rem;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+    font-weight: 100;
+    letter-spacing: .06em;
+    z-index: 10;
+}
+.location-wrapper:hover {
+    color: var(--accent-color-hover);
+    cursor: help;
+}
+.location-wrapper i {
+    color: var(--accent-color);
+}
 .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
