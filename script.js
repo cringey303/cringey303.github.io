@@ -33,24 +33,35 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
 
-    // Lightbox functionality
+    // --- Lightbox functionality --- //
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxVideo = document.getElementById('lightbox-video');
+
     const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
 
     lightboxTriggers.forEach(trigger => {
-        trigger.addEventListener('click', () => {
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
             lightbox.style.display = 'flex'; // Use flex to center content
-            lightboxImg.src = trigger.src;
+            if (trigger.tagName === 'IMG') {
+                lightboxImg.style.display = 'block';
+                lightboxVideo.style.display = 'none';
+                lightboxImg.src = trigger.src;
+            } else if (trigger.tagName === 'VIDEO') {
+                lightboxImg.style.display = 'none';
+                lightboxVideo.style.display = 'block';
+                lightboxVideo.src = trigger.currentSrc || trigger.src;
+            }
         });
     });
 
     // Close lightbox when clicking on the background
     lightbox.addEventListener('click', e => {
-        // We only want to close if the click is on the dark background (the lightbox itself)
-        // and not on the image inside it.
-        if (e.target !== lightboxImg) {
+        if (e.target !== lightboxImg && e.target !== lightboxVideo) {
             lightbox.style.display = 'none';
+            lightboxVideo.pause();
+            lightboxVideo.currentTime = 0;
         }
     });
 
@@ -135,3 +146,24 @@ const animateCursor = () => {
 };
 
 animateCursor();
+
+// -- Video Hover (About Section) ---
+    const simpleVideoContainers = document.querySelectorAll('.hover-trigger');
+
+    simpleVideoContainers.forEach(container => {
+        const video = container.querySelector('video');
+        if (!video) return;
+
+        container.addEventListener('mouseenter', () => {
+            // Play the video
+            video.play().catch(error => {
+                console.log("Autoplay prevented:", error);
+            });
+        });
+
+        container.addEventListener('mouseleave', () => {
+            // Pause and reset to the beginning
+            video.pause();
+            video.currentTime = 0; 
+        });
+    });

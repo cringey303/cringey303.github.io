@@ -262,6 +262,19 @@ nav {
     border-radius: 8px;
 }
 
+.about-images video {
+    width: 100%;
+    height: 250px;
+    border-radius: 8px;
+    display:block;
+    object-fit: cover;
+}
+
+.hover-trigger {
+    cursor: none; /* Keeps your custom cursor consistent */
+    transition: transform 0.3s ease;
+}
+
 .lightbox {
             display: none;
             position: fixed;
@@ -469,6 +482,11 @@ body {
     }
 
     body, a, .btn, .about-images img.lightbox-trigger {
+        cursor: auto;
+    }
+
+    .about-images video {
+        height: 200px;
         cursor: auto;
     }
 }

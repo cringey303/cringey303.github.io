@@ -200,7 +200,16 @@
                 </div>
                 <div class="about-images">
                     <img src="content/charles_rowing.jpg" alt="Head of the Charles 2023" class="lightbox-trigger">
-                    <img src="content/bowling.JPG" alt="Royal Crest Lanes, LFK" class="lightbox-trigger">
+                    
+                    <div class="hover-trigger">
+                        <video
+                            class="lightbox-trigger"
+                            src="content/bowling.mp4"
+                            loop
+                            muted
+                            playsinline
+                        ></video>
+                    </div>
                 </div>
             </div>
         </section>
@@ -226,6 +235,7 @@
     <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox">
         <img class="lightbox-content" id="lightbox-img">
+        <video class="lightbox-content" id="lightbox-video" controls style="display: none;"></video>
     </div>
 
     <script src="script.js"></script>
