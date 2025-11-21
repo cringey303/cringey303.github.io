@@ -1,6 +1,6 @@
 # Personal Portfolio Website - Lucas Root
 
-This repository contains the source code my portfolio website live at lucasroot.org, a simple one-page website showcasing my projects and a little about me.
+This repository contains the source code my portfolio website live at <a href="https://lucasroot.org" target="_blank" rel="noopener">lucasroot.org</a>, a simple one-page website showcasing my projects and a little about me.
 
 
 ## Features
