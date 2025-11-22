@@ -1,0 +1,101 @@
+/* --- CSS Variables --- */
+:root {
+    --bg-color: #121212;
+    --primary-text-color: #e0e0e0;
+    --secondary-text-color: #a0a0a0;
+    --accent-color: #007bff;
+    --accent-color-hover: #0056b3;
+    --card-bg-color: #1e1e1e;
+    --border-color: #333;
+    --font-family: 'Inter', sans-serif;
+}
+
+/* --- General Styles & Reset --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--primary-text-color);
+    font-family: var(--font-family);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.score-board {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    align-items: left;
+}
+
+canvas {
+    background-color: #1e1e1e;
+    border: 2px solid var(--accent-color);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+    display: block;
+    margin: 0 auto;
+}
+
+.controls {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+#start-btn {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+#start-btn:hover {
+    background-color: var(--accent-color-hover);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid #333;
+    color: var(--primary-text-color);
+}
+
+.btn-secondary:hover {
+    background-color: #333;
+}
+
+.instructions {
+    margin-top: 1rem;
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
