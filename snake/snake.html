@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake | Lucas Root</title>
+</head>
+    
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <head>
     <meta charset="UTF-8">
@@ -10,12 +16,19 @@
 <body>
     <div class="wrapper">
         <div class="score-board">
-            <span class="score"></span><i class="fa-solid fa-apple-whole"></i> 15</span>
+            <div class="score-item">
+                <i class="fa-solid fa-apple-whole"></i>
+                <span id="score">15</span>
+            </div>
+            <div class="score-item">
+                <i class="fa-solid fa-trophy"></i>
+                <span id="high-score">43</span>
+            </div>
         </div>
         <canvas id="game-board" width="400" height="400"></canvas>
         
         <div class="controls">
-            <button id="
+            <button id="start-btn" class="btn">Start</button>
         </div>
     </div>
     <script src="snake.js" defer></script>

@@ -36,22 +36,48 @@ h1 {
     letter-spacing: 4px;
 }
 
+/* ---Score Board--- */
 .score-board {
+    display: flex;
     font-size: 1.3rem;
-    margin-bottom: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
     font-weight: 500;
-    align-items: left;
+    color: var(--primary-text-color);
 }
 
+.score-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.score-item:hover {
+    transform: translateY(-3px);
+    color: var(--secondary-text-color);
+}
+
+.fa-apple-whole {
+    color: rgb(163, 61, 61);
+}
+
+.fa-trophy {
+    color: rgb(197, 197, 31);
+}
+
+/* ---Canvas--- */
 canvas {
     background-color: #1e1e1e;
     border: 2px solid var(--accent-color);
     border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+    box-shadow: 0 0 11px rgba(0, 123, 255, 0.2);
     display: block;
     margin: 0 auto;
 }
 
+/* ---Conrols--- */
 .controls {
     margin-top: 1.5rem;
     display: flex;
@@ -92,10 +118,4 @@ canvas {
 
 .btn-secondary:hover {
     background-color: #333;
-}
-
-.instructions {
-    margin-top: 1rem;
-    color: #a0a0a0;
-    font-size: 0.9rem;
 }
