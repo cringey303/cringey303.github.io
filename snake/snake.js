@@ -13,7 +13,7 @@ const TILE_COUNT = canvas.width / GRID_SIZE; //400/20 = 20 tiles
 
 //Game vars
 let score = 0;
-let highScore = localStorage.getItem("snakeHig:Score") || 0;
+let highScore = localStorage.getItem("snakeHighScore") || 0;
 
 //snake and food structure
 let snake = [{x: 10, y: 10}];
