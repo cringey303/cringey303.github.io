@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="content/LR_Logo.svg" type="image/x-icon">
     <title>Snake | Lucas Root</title>
 </head>
     
@@ -15,17 +16,21 @@
 </head>
 <body>
     <div class="wrapper">
+        <!--Score Board-->
         <div class="score-board">
             <div class="score-item">
                 <i class="fa-solid fa-apple-whole"></i>
-                <span id="score">15</span>
+                <span id="score">0</span>
             </div>
             <div class="score-item">
                 <i class="fa-solid fa-trophy"></i>
-                <span id="high-score">43</span>
+                <span id="high-score"></span>
             </div>
         </div>
-        <canvas id="game-board" width="400" height="400"></canvas>
+        <!--Game Board-->
+        <canvas id="game-board" width="400" height="400">
+
+        </canvas>
         
         <div class="controls">
             <button id="start-btn" class="btn">Start</button>

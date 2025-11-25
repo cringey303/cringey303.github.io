@@ -7,6 +7,8 @@
     --accent-color-hover: #0056b3;
     --card-bg-color: #1e1e1e;
     --border-color: #333;
+    --apple-color: rgb(163, 61, 61);
+    --trophy-color: rgb(197, 197, 31);
     --font-family: 'Inter', sans-serif;
 }
 
@@ -60,11 +62,11 @@ h1 {
 }
 
 .fa-apple-whole {
-    color: rgb(163, 61, 61);
+    color: var(--apple-color);
 }
 
 .fa-trophy {
-    color: rgb(197, 197, 31);
+    color: var(--trophy-color);
 }
 
 /* ---Canvas--- */
@@ -77,6 +79,12 @@ canvas {
     margin: 0 auto;
 }
 
+/* ---Game Board--- */
+.game-board {
+    width: 100%;
+    height: 100%;
+    background-color: #121212;
+}
 /* ---Conrols--- */
 .controls {
     margin-top: 1.5rem;
