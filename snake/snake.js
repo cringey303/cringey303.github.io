@@ -43,6 +43,7 @@ const controlsOverlay = document.getElementById("controls-overlay");
 const highscoreForm = document.getElementById("highscore-form");
 const usernameInput = document.getElementById("username-input");
 const submitScoreBtn = document.getElementById("submit-score-btn");
+const cancelBtn = document.getElementById("cancel-btn");
 const leaderboardList = document.getElementById("leaderboard-list");
 
 //colors
@@ -97,7 +98,7 @@ function gameOver() {
     clearInterval(gameInterval);
     isGameRunning = false;
 
-    if (score > 0) {
+    if (score > localhighScore) {
         showHighScoreForm();
     } else {
         controlsOverlay.style.display = "flex";
@@ -110,16 +111,27 @@ function showHighScoreForm() {
     usernameInput.focus();
 }
 
+if(cancelBtn) {
+    cancelBtn.addEventListener("click", () => {
+        highscoreForm.style.display = "none";
+        controlsOverlay.style.display = "none";
+        usernameInput.value = "";
+    })
+}
 // Submit Score to Firebase
 if(submitScoreBtn) {
     submitScoreBtn.addEventListener("click", async () => {
-        const username = usernameInput.value.toUpperCase() || "AAAAAAAA";
+        let rawInput = usernameInput.value || "username";
+        //clean input against XSS attacks
+        const username = rawInput.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
         const user = auth.currentUser;
 
         if (user) {
             try {
+                submitScoreBtn.textContent = "Saving...";
+                submitScoreBtn.disabled = true;
                 // Save to 'snake_scores' collection in the user's public data area
-                const scoresCollection = collection(db, 'artifacts', appId, 'public', 'data', 'snake_scores');
+                const scoresCollection = collection(db, 'snake_scores');
                 
                 await addDoc(scoresCollection, {
                     name: username,
@@ -139,11 +151,17 @@ if(submitScoreBtn) {
             } catch (e) {
                 console.error("Error adding score: ", e);
                 alert("Could not save score. Check console.");
+            } finally {
+                submitScoreBtn.textContent = "Submit";
+                submitScoreBtn.disabled = false;
             }
         } else {
             alert("Not connected to leaderboard.");
             highscoreForm.style.display = "none";
             controlsOverlay.style.display = "flex";
+            signInAnonymously(auth).then(() => {
+                alert("Reconnected! Try again.");
+            });
         }
     });
 }
@@ -164,18 +182,22 @@ async function loadLeaderboard() {
             scores.push(doc.data());
         });
 
-        // Render HTML
-        leaderboardList.innerHTML = scores.map((entry, index) => `
-            <li>
-                <span>${index + 1}. ${entry.name}</span>
-                <span>${entry.score}</span>
-            </li>
-        `).join('');
+        if(leaderboardList) {
+            // Render HTML
+            leaderboardList.innerHTML = scores.map((entry, index) => {
+            //escape any HTML
+            const safeName = entry.name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            return `
+                <li>
+                    <span>${index + 1}. ${entry.name}</span>
+                    <span>${entry.score}</span>
+                </li>
+            `}).join('');
         
-        if (scores.length === 0) {
-            leaderboardList.innerHTML = "<li>No scores yet.</li>";
+            if (scores.length === 0) {
+                leaderboardList.innerHTML = "<li>No scores yet.</li>";
+            }
         }
-
     } catch (error) {
         console.error("Error loading leaderboard:", error);
         leaderboardList.innerHTML = "<li>Loading failed.</li>";

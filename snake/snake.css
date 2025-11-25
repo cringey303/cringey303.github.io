@@ -5,11 +5,13 @@
     --secondary-text-color: #a0a0a0;
     --accent-color: #007bff;
     --accent-color-hover: #0056b3;
+    --danger-color: #dc3545;
+    --danger-color-hover: #bb2d3b;
     --card-bg-color: #1e1e1e;
     --border-color: #333;
     --apple-color: rgb(163, 61, 61);
     --trophy-color: rgb(197, 197, 31);
-    --font-family: 'Press Start 2P', cursive;
+    --font-family: 'Courier New', Courier, monospace;
 }
 
 /* --- General Styles & Reset --- */
@@ -31,6 +33,12 @@ body {
     text-align: center;
 }
 
+.wrapper {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
 h1 {
     font-size: 3rem;
     margin-bottom: 0.5rem;
@@ -39,11 +47,29 @@ h1 {
 }
 
 .main-layout {
-    display: flex;
-    gap: 40px;
+    display: grid;
+    gap: 5px 40px;
     align-items: flex-start;
+    grid-template-columns: 250px 400px;
+    grid-template-rows: auto auto;
     justify-content: center;
-    flex-wrap: wrap;
+}
+
+/* Grid Positioning */
+.score-board {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.leaderboard-container {
+    grid-column: 1;
+    grid-row: 2;
+    height: 4px; 
+}
+
+.game-container {
+    grid-column: 2;
+    grid-row: 2;
 }
 
 /* ---Leaderboard--- */
@@ -86,22 +112,15 @@ h1 {
     border-bottom: none;
 }
 
-/* --- Game Area --- */
-.game-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 /* ---Score Board--- */
 .score-board {
     display: flex;
     font-size: 1.3rem;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
     font-weight: 500;
     color: var(--primary-text-color);
+    width: 100%;
 }
 
 .score-item {
@@ -116,13 +135,8 @@ h1 {
     color: var(--secondary-text-color);
 }
 
-.fa-apple-whole {
-    color: var(--apple-color);
-}
-
-.fa-trophy {
-    color: var(--trophy-color);
-}
+.fa-apple-whole { color: var(--apple-color); }
+.fa-trophy { color: var(--trophy-color); }
 
 /* ---Canvas--- */
 canvas {
@@ -146,6 +160,7 @@ canvas {
     height: 400px;
     margin: 0 auto;
 }
+
 /* ---Conrols--- */
 .controls, .highscore-form {
     position: absolute;
@@ -161,15 +176,21 @@ canvas {
 
 .highscore-form {
     background-color: rgba(30, 30, 30, 0.95);
-    padding: 20px;
+    padding: 25px;
     border-radius: 8px;
-    border: 1px solid var(--accent-color);
-    width: 80%;
+    border: 2px solid var(--accent-color);
+    width: 85%;
     box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    pointer-events: auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
+
 .highscore-form h2 {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin: 0rem;
+    color: #fff;
 }
 
 input[type="text"] {
@@ -187,7 +208,12 @@ input[type="text"] {
 input[type="text"]:focus {
     border-color: var(--accent-color);
 }
-
+ .form-buttons {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+ }
 /* ---Buttons--- */
 .btn {
     padding: 0.8rem 1.5rem;
@@ -226,6 +252,12 @@ input[type="text"]:focus {
 .btn-secondary:hover {
     background-color: #333;
 }
+
+#cancel-btn {
+    background-color: var(--apple-color);
+    color: white;
+}
+#cancel-btn:hover { background-color: var(--danger-color-hover); }
 
 /* Mobile */
 @media (max-width: 750px) {
