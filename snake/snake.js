@@ -1,8 +1,49 @@
+// Import the functions you need from the SDKs
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+// --- Firebase Setup ---
+const firebaseConfig = {
+    apiKey: "AIzaSyB6bCIp7FsrX3sCvtKe6DjHayCA32o1K2I",
+    authDomain: "lucasrootorg-snake.firebaseapp.com",
+    projectId: "lucasrootorg-snake",
+    storageBucket: "lucasrootorg-snake.firebasestorage.app",
+    messagingSenderId: "24548940286",
+    appId: "1:24548940286:web:6d66680ab6c7a4541bc8af",
+    measurementId: "G-CJWR506KQF"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+// Authentication Logic
+const initAuth = async () => {
+    try {
+        await signInAnonymously(auth);
+        console.log("Signed in to Firebase");
+        loadLeaderboard(); // Load scores after signing in
+    } catch (error) {
+        console.error("Error signing in:", error);
+        document.getElementById("leaderboard-list").innerHTML = "<li>Offline Mode</li>";
+    }
+};
+
+initAuth();
+
+//---Game Setup---//
 const canvas = document.getElementById("game-board");
 const ctx = canvas.getContext("2d");
 const scoreElement = document.getElementById("score");
 const highScoreElement = document.getElementById("high-score");
 const startBtn = document.getElementById("start-btn");
+const controlsOverlay = document.getElementById("controls-overlay");
+const highscoreForm = document.getElementById("highscore-form");
+const usernameInput = document.getElementById("username-input");
+const submitScoreBtn = document.getElementById("submit-score-btn");
+const leaderboardList = document.getElementById("leaderboard-list");
 
 //colors
 const snakeColor = '#007bff';
@@ -13,7 +54,7 @@ const TILE_COUNT = canvas.width / GRID_SIZE; //400/20 = 20 tiles
 
 //Game vars
 let score = 0;
-let highScore = localStorage.getItem("snakeHighScore") || 0;
+let localhighScore = localStorage.getItem("snakeHighScore") || 0;
 
 //snake and food structure
 let snake = [{x: 10, y: 10}];
@@ -31,7 +72,7 @@ let inputQueue = [];
 let gameInterval; //used to stop the game later
 let isGameRunning = false;
 
-highScoreElement.textContent = highScore;
+highScoreElement.textContent = localhighScore;
 
 function startGame() {
     if (isGameRunning) return; //exit if already running
@@ -44,8 +85,10 @@ function startGame() {
     isGameRunning = true;
     inputQueue = [];
 
-    //hide start button
-    startBtn.style.display = "none";
+    //hide controls and highscore form
+    controlsOverlay.style.display = "none";
+    highscoreForm.style.display = "none";
+
     //run gameLoop every 100ms
     gameInterval = setInterval(gameLoop, 100);
 }
@@ -53,19 +96,100 @@ function startGame() {
 function gameOver() {
     clearInterval(gameInterval);
     isGameRunning = false;
-    //re-display startBtn
-    startBtn.style.display = "block";
-    startBtn.textContent = "Play Again";
+
+    if (score > 0) {
+        showHighScoreForm();
+    } else {
+        controlsOverlay.style.display = "flex";
+        startBtn.textContent = "Play Again";
+    }    
+}
+
+function showHighScoreForm() {
+    highscoreForm.style.display = "flex";
+    usernameInput.focus();
+}
+
+// Submit Score to Firebase
+if(submitScoreBtn) {
+    submitScoreBtn.addEventListener("click", async () => {
+        const username = usernameInput.value.toUpperCase() || "AAAAAAAA";
+        const user = auth.currentUser;
+
+        if (user) {
+            try {
+                // Save to 'snake_scores' collection in the user's public data area
+                const scoresCollection = collection(db, 'artifacts', appId, 'public', 'data', 'snake_scores');
+                
+                await addDoc(scoresCollection, {
+                    name: username,
+                    score: score,
+                    timestamp: Date.now(),
+                    uid: user.uid
+                });
+                
+                console.log("Score saved!");
+                highscoreForm.style.display = "none";
+                controlsOverlay.style.display = "flex";
+                startBtn.textContent = "Play Again";
+                
+                // Refresh leaderboard
+                loadLeaderboard();
+                
+            } catch (e) {
+                console.error("Error adding score: ", e);
+                alert("Could not save score. Check console.");
+            }
+        } else {
+            alert("Not connected to leaderboard.");
+            highscoreForm.style.display = "none";
+            controlsOverlay.style.display = "flex";
+        }
+    });
+}
+
+// Load Leaderboard from Firebase
+async function loadLeaderboard() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const scoresCollection = collection(db, 'snake_scores');
+    
+    try {
+        const q = query(scoresCollection, orderBy("score","desc"), limit(10));
+        const querySnapshot = await getDocs(q);
+        let scores = [];
+        
+        querySnapshot.forEach((doc) => {
+            scores.push(doc.data());
+        });
+
+        // Render HTML
+        leaderboardList.innerHTML = scores.map((entry, index) => `
+            <li>
+                <span>${index + 1}. ${entry.name}</span>
+                <span>${entry.score}</span>
+            </li>
+        `).join('');
+        
+        if (scores.length === 0) {
+            leaderboardList.innerHTML = "<li>No scores yet.</li>";
+        }
+
+    } catch (error) {
+        console.error("Error loading leaderboard:", error);
+        leaderboardList.innerHTML = "<li>Loading failed.</li>";
+    }
 }
 
 function gameLoop() {
-    
     if (isGameRunning) {
         processInput();
         moveSnake();
         drawGame();
     }
 }
+
 function drawRect(x,y,color) {
     ctx.fillStyle = color;
     //x * GRID_SIZE converts grid coord to pixel coord
@@ -126,7 +250,6 @@ function moveSnake() {
             return gameOver();
         } 
     }
-
     //add new head
     snake.unshift(head);
 
@@ -136,10 +259,10 @@ function moveSnake() {
         score++;
         scoreElement.textContent = score;
         //update highscore
-        if (score > highScore) {
-            highScore = score;
-            localStorage.setItem("snakeHighScore", highScore);
-            highScoreElement.textContent = highScore;
+        if (score > localhighScore) {
+            localhighScore = score;
+            localStorage.setItem("snakeHighScore", localhighScore);
+            highScoreElement.textContent = localhighScore;
         }
         placeFood();
     } else {
@@ -152,7 +275,7 @@ function placeFood(){
     food.x = Math.floor(Math.random() * TILE_COUNT);
     food.y = Math.floor(Math.random() * TILE_COUNT);
     
-    //call again if food spawns on snake tile
+    //recursively call again if food spawns on snake tile
     for (let i = 0; i < snake.length; i++) {
         if (food.x === snake[i].x && food.y === snake[i].y) {
             placeFood();
@@ -161,11 +284,13 @@ function placeFood(){
 }
 
 //start game
-startBtn.addEventListener("click", startGame);
+if(startBtn) startBtn.addEventListener("click", startGame);
 //keyboard input
 document.addEventListener("keydown", (event) => {
     //allow any key to start game
-    if (!isGameRunning) {startGame()};
+    if (!isGameRunning && highscoreForm && highscoreForm.style.display === "none" && event.key !== "Enter") {
+        startGame();
+    }
 
     //prevent scrolling when using arrow keys
     if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(event.code)) {

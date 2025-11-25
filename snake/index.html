@@ -3,40 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="content/LR_Logo.svg" type="image/x-icon">
+    <link rel="icon" href="../content/LR_Logo.svg" type="image/x-icon">
     <title>Snake | Lucas Root</title>
-</head>
-    
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="snake.css">
 </head>
 <body>
     <div class="wrapper">
-        <!--Score Board-->
-        <div class="score-board">
-            <div class="score-item">
-                <i class="fa-solid fa-apple-whole"></i>
-                <span id="score">0</span>
+        <div class="main-layout">
+
+            <!--Leaderboard-->
+            <div class="leaderboard-container">
+                <h3>Top Players</h3>
+                <ul id="leaderboard-list">
+                    <li>Loading...</li>
+                </ul>
             </div>
-            <div class="score-item">
-                <i class="fa-solid fa-trophy"></i>
-                <span id="high-score">0</span>
+
+            <!--Game Area-->
+            <div class="game-area">
+                <!--Score Board-->
+                <div class="score-board">
+                    <div class="score-item">
+                        <i class="fa-solid fa-apple-whole"></i>
+                        <span id="score">0</span>
+                    </div>
+                    <div class="score-item">
+                        <i class="fa-solid fa-trophy"></i>
+                        <span id="high-score">0</span>
+                    </div>
+                </div>
+
+                <!--Game Board-->
+                <div class="game-container">
+                    <canvas id="game-board" width="400" height="400"></canvas>
+                    
+                    <!-- Start/Restart Overlay -->
+                    <div class="controls" id="controls-overlay">
+                        <button id="start-btn" class="btn">Start</button>
+                    </div>
+
+                    <!-- Highscore Input Form -->
+                    <div class="highscore-form" id="highscore-form" style="display: none;">
+                        <h2>New High Score!</h2>
+                        <input type="text" id="username-input" maxlength="8" placeholder="AAAAAAAA" style="text-transform: uppercase;">
+                        <button id="submit-score-btn" class="btn">Submit</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <!--Game Board-->
-        <div class="game-container">
-            <canvas id="game-board" width="400" height="400"></canvas>
-            <div class="controls">
-                <button id="start-btn" class="btn">Start</button>
-            </div>
-        </div>
-        
-        
     </div>
-    <script src="snake.js" defer></script>
+    <script type="module" src="snake.js"></script>
 </body>
 </html>

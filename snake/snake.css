@@ -9,7 +9,7 @@
     --border-color: #333;
     --apple-color: rgb(163, 61, 61);
     --trophy-color: rgb(197, 197, 31);
-    --font-family: 'Inter', sans-serif;
+    --font-family: 'Press Start 2P', cursive;
 }
 
 /* --- General Styles & Reset --- */
@@ -36,6 +36,61 @@ h1 {
     margin-bottom: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 4px;
+}
+
+.main-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ---Leaderboard--- */
+.leaderboard-container {
+    width: 250px;
+    position: relative;
+    text-align: left;
+    background: var(--card-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    height: 400px;
+    overflow-y: auto;
+}
+
+.leaderboard-container h3 {
+    margin-top: 0;
+    text-align: center;
+    color: var(--accent-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+#leaderboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#leaderboard-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #333;
+    font-size: 0.95rem;
+}
+
+#leaderboard-list li:last-child {
+    border-bottom: none;
+}
+
+/* --- Game Area --- */
+.game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* ---Score Board--- */
@@ -85,7 +140,6 @@ canvas {
     background-color: #121212;
 }
 
-/* ---Game Board--- */
 .game-container {
     position: relative;
     width: 400px;
@@ -93,7 +147,7 @@ canvas {
     margin: 0 auto;
 }
 /* ---Conrols--- */
-.controls {
+.controls, .highscore-form {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -105,6 +159,36 @@ canvas {
     pointer-events: none;
 }
 
+.highscore-form {
+    background-color: rgba(30, 30, 30, 0.95);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--accent-color);
+    width: 80%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+.highscore-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background: #222;
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100px;
+    outline: none;
+}
+input[type="text"]:focus {
+    border-color: var(--accent-color);
+}
+
+/* ---Buttons--- */
 .btn {
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
@@ -121,7 +205,7 @@ canvas {
     transform: translateY(-2px);
 }
 
-#start-btn {
+#start-btn, #submit-score-btn {
     background-color: var(--accent-color);
     color: white;
     z-index: 10;
@@ -129,7 +213,7 @@ canvas {
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
-#start-btn:hover {
+#start-btn:hover, #submit-score-btn:hover {
     background-color: var(--accent-color-hover);
 }
 
@@ -141,4 +225,18 @@ canvas {
 
 .btn-secondary:hover {
     background-color: #333;
+}
+
+/* Mobile */
+@media (max-width: 750px) {
+    .main-layout {
+        flex-direction: column-reverse; /* Put game on top, leaderboard below on mobile */
+        align-items: center;
+    }
+    
+    .leaderboard-container {
+        width: 400px;
+        height: 300px;
+        max-height: 300px;
+    }
 }
