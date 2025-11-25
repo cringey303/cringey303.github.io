@@ -76,7 +76,6 @@ canvas {
     border-radius: 4px;
     box-shadow: 0 0 11px rgba(0, 123, 255, 0.2);
     display: block;
-    margin: 0 auto;
 }
 
 /* ---Game Board--- */
@@ -85,12 +84,25 @@ canvas {
     height: 100%;
     background-color: #121212;
 }
+
+/* ---Game Board--- */
+.game-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+}
 /* ---Conrols--- */
 .controls {
-    margin-top: 1.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
     display: flex;
-    gap: 1rem;
+    width: 100%;
     justify-content: center;
+    pointer-events: none;
 }
 
 .btn {
@@ -112,6 +124,9 @@ canvas {
 #start-btn {
     background-color: var(--accent-color);
     color: white;
+    z-index: 10;
+    pointer-events: auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
 #start-btn:hover {

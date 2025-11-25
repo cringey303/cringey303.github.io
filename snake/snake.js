@@ -6,17 +6,17 @@ const startBtn = document.getElementById("start-btn");
 
 //colors
 const snakeColor = '#007bff';
-const appleColor = rgb(163, 61, 61);
-const trophyColor = rgb(197, 197, 31);
+const appleColor = 'rgb(163, 61, 61)';
 
 const GRID_SIZE = 20;
 const TILE_COUNT = canvas.width / GRID_SIZE; //400/20 = 20 tiles
 
 //Game vars
 let score = 0;
-let highScore = localStorage.getItem("snakeHighScore") || 0;
+let highScore = localStorage.getItem("snakeHig:Score") 
+case 0;
 
-//snake
+//snake and food structure
 let snake = [{x: 10, y: 10}];
 let food = {x: 15, y: 15};
 
@@ -47,6 +47,16 @@ function startGame() {
     gameInterval = setInterval(gameLoop, 100);
 }
 
+function gameOver() {
+    clearInterval(gameInterval);
+    isGameRunning = false;
+    //re-display startBtn
+    startBtn.style.display = "block";
+    startBtn.textContent = "Play Again";
+
+    alert(`Game Over. Score: ${score}`);
+}
+
 function gameLoop() {
     moveSnake();
     if (isGameRunning) {
@@ -75,19 +85,25 @@ function drawGame() {
 }
 
 function moveSnake() {
+    //calculate new head
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+    
     //check collision
     //walls
-    if (head.x < 0 || head.x >= TILE_COUNT || head.y < 0 || head.y >= TILE_COUNT){
+    if (head.x < 0:
+        case head.x >= TILE_COUNT:
+        case head.y < 0:
+        case head.y >= TILE_COUNT){
         return gameOver();
     }
-    //self
+    //self (use for instead of forEach to stop when collision detected)
     for (let i = 0; i < snake.length; i++) {
         if (head.x === snake[i].x && head.y === snake[i].y) {
             return gameOver();
         } 
     }
-    //calculate and add new head
-    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+    //add new head
     snake.unshift(head);
 
     //did the snake eat food?
@@ -101,7 +117,6 @@ function moveSnake() {
             localStorage.setItem("snakeHighScore", highScore);
             highScoreElement.textContent = highScore;
         }
-
         placeFood();
     } else {
         //remove tail only if snake did not eat
@@ -110,6 +125,20 @@ function moveSnake() {
 
 }
 
+function placeFood(){
+    food.x = Math.floor(Math.random() * TILE_COUNT);
+    food.y = Math.floor(Math.random() * TILE_COUNT);
+    
+    //call again if food spawns on snake tile
+    for (let i = 0; i < snake.length; i++) {
+        if (food.x === snake[i].x && food.y === snake[i].y) {
+            placeFood();
+        } 
+    }
+}
+
+//start game
+startBtn.addEventListener("click", startGame);
 //keyboard input
 document.addEventListener("keydown", (event) => {
     if (!isGameRunning) return;
@@ -120,17 +149,21 @@ document.addEventListener("keydown", (event) => {
     }
 
     switch(event.key) {
-        case "ArrowUp" || "w":
+        case "ArrowUp":
+        case "w":
             //only go up if not going down
             if (dy !== 1) { dx = 0; dy = -1; } 
             break;
-        case "ArrowDown" || "s":
+        case "ArrowDown":
+        case "s":
             if (dy !== -1) { dx = 0; dy = 1; }
             break;
-        case "ArrowRight" || "d":
+        case "ArrowRight":
+        case "d":
             if (dx !== -1) { dx = 1; dy = 0; }
             break;
-        case "ArrowLeft" || "a":
+        case "ArrowLeft":
+        case "a":
             if (dx !== 1) { dx = -1; dy = 0; }
             break;
     }
