@@ -13,8 +13,7 @@ const TILE_COUNT = canvas.width / GRID_SIZE; //400/20 = 20 tiles
 
 //Game vars
 let score = 0;
-let highScore = localStorage.getItem("snakeHig:Score") 
-case 0;
+let highScore = localStorage.getItem("snakeHig:Score") || 0;
 
 //snake and food structure
 let snake = [{x: 10, y: 10}];
@@ -25,6 +24,9 @@ let food = {x: 15, y: 15};
 //y: -1 = up, 1 = down
 let dx = 0;
 let dy = 0;
+
+//prevent more than one direction changes in 1 tick
+let changingDirection = false;
 
 let gameInterval; //used to stop the game later
 let isGameRunning = false;
@@ -53,13 +55,12 @@ function gameOver() {
     //re-display startBtn
     startBtn.style.display = "block";
     startBtn.textContent = "Play Again";
-
-    alert(`Game Over. Score: ${score}`);
 }
 
 function gameLoop() {
-    moveSnake();
+    
     if (isGameRunning) {
+        moveSnake();
         drawGame();
     }
 }
@@ -85,15 +86,15 @@ function drawGame() {
 }
 
 function moveSnake() {
+    //start of game (stationary, don't check collisions or move)
+    if (dx === 0 && dy === 0) return;
+
     //calculate new head
     const head = { x: snake[0].x + dx, y: snake[0].y + dy };
     
     //check collision
     //walls
-    if (head.x < 0:
-        case head.x >= TILE_COUNT:
-        case head.y < 0:
-        case head.y >= TILE_COUNT){
+    if (head.x < 0 || head.x >= TILE_COUNT || head.y < 0 || head.y >= TILE_COUNT){
         return gameOver();
     }
     //self (use for instead of forEach to stop when collision detected)
@@ -122,7 +123,7 @@ function moveSnake() {
         //remove tail only if snake did not eat
         snake.pop();
     }
-
+    changingDirection = false;
 }
 
 function placeFood(){
@@ -141,30 +142,47 @@ function placeFood(){
 startBtn.addEventListener("click", startGame);
 //keyboard input
 document.addEventListener("keydown", (event) => {
-    if (!isGameRunning) return;
+    //allow any key to start game
+    if (!isGameRunning) {startGame()};
+
+    //stop if already changing direction this frame
+    if (changingDirection) return;
 
     //prevent scrolling when using arrow keys
     if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(event.code)) {
         event.preventDefault();
     }
 
+    //link input to velocity
     switch(event.key) {
         case "ArrowUp":
         case "w":
             //only go up if not going down
-            if (dy !== 1) { dx = 0; dy = -1; } 
+            if (dy !== 1) { 
+                dx = 0; dy = -1;
+                changingDirection = true;
+            } 
             break;
         case "ArrowDown":
         case "s":
-            if (dy !== -1) { dx = 0; dy = 1; }
+            if (dy !== -1) { 
+                dx = 0; dy = 1;
+                changingDirection = true;
+            }
             break;
         case "ArrowRight":
         case "d":
-            if (dx !== -1) { dx = 1; dy = 0; }
+            if (dx !== -1) {
+                dx = 1; dy = 0;
+                changingDirection = true;
+            }
             break;
         case "ArrowLeft":
         case "a":
-            if (dx !== 1) { dx = -1; dy = 0; }
+            if (dx !== 1) {
+                dx = -1; dy = 0; 
+                changingDirection = true;
+            }
             break;
     }
 });
