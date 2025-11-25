@@ -25,8 +25,8 @@ let food = {x: 15, y: 15};
 let dx = 0;
 let dy = 0;
 
-//prevent more than one direction changes in 1 tick
-let changingDirection = false;
+//input buffer
+let inputQueue = [];
 
 let gameInterval; //used to stop the game later
 let isGameRunning = false;
@@ -42,6 +42,7 @@ function startGame() {
     score = 0;
     scoreElement.textContent = score;
     isGameRunning = true;
+    inputQueue = [];
 
     //hide start button
     startBtn.style.display = "none";
@@ -60,6 +61,7 @@ function gameOver() {
 function gameLoop() {
     
     if (isGameRunning) {
+        processInput();
         moveSnake();
         drawGame();
     }
@@ -83,6 +85,27 @@ function drawGame() {
     snake.forEach((segment) => {
         drawRect(segment.x, segment.y, snakeColor);
     });
+}
+
+function processInput() {
+    if (inputQueue.length > 0) {
+        const nextMove = inputQueue.shift();
+
+        const goingUp = dy === -1;
+        const goingDown = dy === 1;
+        const goingRight = dx === 1;
+        const goingLeft = dx === -1;
+
+        if (nextMove.type === 'Up' && !goingDown) {
+            dx = 0; dy = -1;
+        } else if (nextMove.type === 'Down' && !goingUp) {
+            dx = 0; dy = 1;
+        } else if (nextMove.type === 'Left' && !goingRight) {
+            dx = -1; dy = 0;
+        } else if (nextMove.type === 'Right' && !goingLeft) {
+            dx = 1; dy = 0;
+        }
+    }
 }
 
 function moveSnake() {
@@ -123,7 +146,6 @@ function moveSnake() {
         //remove tail only if snake did not eat
         snake.pop();
     }
-    changingDirection = false;
 }
 
 function placeFood(){
@@ -145,9 +167,6 @@ document.addEventListener("keydown", (event) => {
     //allow any key to start game
     if (!isGameRunning) {startGame()};
 
-    //stop if already changing direction this frame
-    if (changingDirection) return;
-
     //prevent scrolling when using arrow keys
     if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(event.code)) {
         event.preventDefault();
@@ -157,32 +176,19 @@ document.addEventListener("keydown", (event) => {
     switch(event.key) {
         case "ArrowUp":
         case "w":
-            //only go up if not going down
-            if (dy !== 1) { 
-                dx = 0; dy = -1;
-                changingDirection = true;
-            } 
+            inputQueue.push({ type: 'Up' });
             break;
         case "ArrowDown":
         case "s":
-            if (dy !== -1) { 
-                dx = 0; dy = 1;
-                changingDirection = true;
-            }
+            inputQueue.push({ type: 'Down' });
             break;
         case "ArrowRight":
         case "d":
-            if (dx !== -1) {
-                dx = 1; dy = 0;
-                changingDirection = true;
-            }
+            inputQueue.push({ type: 'Right' });
             break;
         case "ArrowLeft":
         case "a":
-            if (dx !== 1) {
-                dx = -1; dy = 0; 
-                changingDirection = true;
-            }
+            inputQueue.push({ type: 'Left' });
             break;
     }
 });
