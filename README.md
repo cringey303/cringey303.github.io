@@ -35,4 +35,4 @@ This site is built with vanilla HTML, CSS, and JavaScript to be lightweight and 
 
     content/: All media assets (images, videos, resume PDF).
 
-    snake/: Contains a simple snake game (unfinished).
+    snake/: Contains a simple snake game. Try it out!
