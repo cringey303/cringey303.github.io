@@ -6,7 +6,7 @@
     --accent-color: #007bff;
     --accent-color-hover: #0056b3;
     --danger-color: #dc3545;
-    --danger-color-hover: #bb2d3b;
+    --danger-color-hover: rgb(145, 36, 47);
     --card-bg-color: #1e1e1e;
     --border-color: #333;
     --apple-color: rgb(163, 61, 61);
@@ -202,24 +202,26 @@ input[type="text"] {
     font-size: 1.2rem;
     text-align: center;
     text-transform: uppercase;
-    width: 100px;
+    width: 285px;
     outline: none;
 }
 input[type="text"]:focus {
     border-color: var(--accent-color);
 }
- .form-buttons {
+.form-buttons {
     display: flex;
     gap: 10px;
     width: 100%;
     justify-content: center;
- }
+}
 /* ---Buttons--- */
 .btn {
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
     font-weight: 600;
     cursor: pointer;
+    border: none;
+    font-family: inherit;
     text-decoration: none;
     transition: all 0.3s ease;
     border: none;
@@ -227,9 +229,7 @@ input[type="text"]:focus {
     font-size: 1rem;
 }
 
-.btn:hover {
-    transform: translateY(-2px);
-}
+.btn:hover { transform: translateY(-2px); }
 
 #start-btn, #submit-score-btn {
     background-color: var(--accent-color);
@@ -237,6 +237,11 @@ input[type="text"]:focus {
     z-index: 10;
     pointer-events: auto;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+#submit-score-btn {
+    background-color: var(--accent-color);
+    flex: 1;
 }
 
 #start-btn:hover, #submit-score-btn:hover {
@@ -256,6 +261,7 @@ input[type="text"]:focus {
 #cancel-btn {
     background-color: var(--apple-color);
     color: white;
+    flex: 1;
 }
 #cancel-btn:hover { background-color: var(--danger-color-hover); }
 

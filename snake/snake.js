@@ -56,7 +56,6 @@ const TILE_COUNT = canvas.width / GRID_SIZE; //400/20 = 20 tiles
 //Game vars
 let score = 0;
 let localhighScore = localStorage.getItem("snakeHighScore") || 0;
-
 //snake and food structure
 let snake = [{x: 10, y: 10}];
 let food = {x: 15, y: 15};
@@ -72,6 +71,11 @@ let inputQueue = [];
 
 let gameInterval; //used to stop the game later
 let isGameRunning = false;
+let newHighScoreReached = false;
+
+//Mobile
+let touchStartX = 0;
+let touchStartY = 0;
 
 highScoreElement.textContent = localhighScore;
 
@@ -85,6 +89,7 @@ function startGame() {
     scoreElement.textContent = score;
     isGameRunning = true;
     inputQueue = [];
+    newHighScoreReached = false;
 
     //hide controls and highscore form
     controlsOverlay.style.display = "none";
@@ -98,7 +103,7 @@ function gameOver() {
     clearInterval(gameInterval);
     isGameRunning = false;
 
-    if (score > localhighScore) {
+    if (newHighScoreReached) {
         showHighScoreForm();
     } else {
         controlsOverlay.style.display = "flex";
@@ -285,6 +290,7 @@ function moveSnake() {
             localhighScore = score;
             localStorage.setItem("snakeHighScore", localhighScore);
             highScoreElement.textContent = localhighScore;
+            newHighScoreReached = true;
         }
         placeFood();
     } else {
@@ -321,21 +327,55 @@ document.addEventListener("keydown", (event) => {
 
     //link input to velocity
     switch(event.key) {
-        case "ArrowUp":
-        case "w":
-            inputQueue.push({ type: 'Up' });
-            break;
-        case "ArrowDown":
-        case "s":
-            inputQueue.push({ type: 'Down' });
-            break;
-        case "ArrowRight":
-        case "d":
-            inputQueue.push({ type: 'Right' });
-            break;
-        case "ArrowLeft":
-        case "a":
-            inputQueue.push({ type: 'Left' });
-            break;
+        case "ArrowUp": case "w": inputQueue.push({ type: 'Up' }); break;
+        case "ArrowDown": case "s": inputQueue.push({ type: 'Down' }); break;
+        case "ArrowRight": case "d": inputQueue.push({ type: 'Right' }); break;
+        case "ArrowLeft": case "a": inputQueue.push({ type: 'Left' }); break;
     }
 });
+
+//mobile
+document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+}, false);
+
+document.addEventListener('touchmove',function(e) {
+    //prevent scrolling if game running
+    if (isGameRunning) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+document.addEventListener('touchend',function(e) {
+    if(!isGameRunning) return;
+
+    let touchEndX = e.changedTouches[0].screenX;
+    let touchEndY = e.changedTouches[0].screenY;
+
+    let diffX = touchEndX - touchStartX;
+    let diffY = touchEndX - touchStartY;
+
+    //avoid small swipes
+    const threshold = 30;
+
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        //horizontal swipe
+        if (Math.abs(diffX) > threshold) {
+            if (diffX > 0) {
+                inputQueue.push({ type: 'Right' });
+            } else {
+                inputQueue.push({ type: 'Left' });
+            }
+        }
+    } else {
+        //vertical swipe
+        if (Math.abs(diffY) > threshold) {
+            if (diffY > 0) {
+                inputQueue.push({ type: 'Down' });
+            } else {
+                inputQueue.push({ type: 'Up' });
+            }
+        }
+    }
+}, false);
