@@ -276,27 +276,27 @@ nav {
 }
 
 .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-        }
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 80%;
-        }
+    display: none;
+    position: fixed;
+    z-index: 1002;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+.lightbox-content {
+    max-width: 90%;
+    max-height: 80%;
+}
 .about-images img.lightbox-trigger {
     cursor: none;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 .about-images img.lightbox-trigger:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        
+
 /* --- Projects Section --- */
 .project-grid {
     display: grid;
@@ -472,6 +472,23 @@ body {
     -ms-overflow-style: auto;
 }
 
+/* --- Fullscreen Fixes --- */
+:fullscreen {
+    cursor: default !important;
+}
+
+/* broader browser support */
+:-webkit-full-screen {
+    cursor: default !important;
+}
+
+:-moz-full-screen {
+    cursor: default !important;
+}
+
+:-ms-fullscreen {
+    cursor: default !important;
+}
 
 /* -----Mobile----- */
 
