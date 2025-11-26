@@ -63,8 +63,8 @@ let snake = [{x: 10, y: 10}];
 let food = {x: 15, y: 15};
 
 //movement velocity
-//x: -1 = left, 1 = right
-//y: -1 = up, 1 = down
+//dx: -1 = left, 1 = right
+//dy: -1 = up, 1 = down
 let dx = 0;
 let dy = 0;
 
@@ -324,7 +324,7 @@ function placeFood(){
 }
 
 //start game
-if(startBtn) startBtn.addEventListener("click", startGame);
+if (startBtn) startBtn.addEventListener("click", startGame);
 //keyboard input
 document.addEventListener("keydown", (event) => {
     //allow any key to start game
@@ -396,7 +396,7 @@ document.addEventListener('touchend',function(e) {
     let touchEndY = e.changedTouches[0].screenY;
 
     let diffX = touchEndX - touchStartX;
-    let diffY = touchEndX - touchStartY;
+    let diffY = touchEndY - touchStartY;
 
     //avoid small swipes
     const threshold = 30;
