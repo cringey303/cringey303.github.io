@@ -40,11 +40,13 @@ const scoreElement = document.getElementById("score");
 const highScoreElement = document.getElementById("high-score");
 const startBtn = document.getElementById("start-btn");
 const controlsOverlay = document.getElementById("controls-overlay");
+const pauseOverlay = document.getElementById("pause-overlay");
 const highscoreForm = document.getElementById("highscore-form");
 const usernameInput = document.getElementById("username-input");
 const submitScoreBtn = document.getElementById("submit-score-btn");
 const cancelBtn = document.getElementById("cancel-btn");
 const leaderboardList = document.getElementById("leaderboard-list");
+//showHighScoreForm(); //debug
 
 //colors
 const snakeColor = '#007bff';
@@ -55,7 +57,7 @@ const TILE_COUNT = canvas.width / GRID_SIZE; //400/20 = 20 tiles
 
 //Game vars
 let score = 0;
-let localhighScore = localStorage.getItem("snakeHighScore") || 0;
+let localhighScore = parseInt(localStorage.getItem("snakeHighScore")) || 0;
 //snake and food structure
 let snake = [{x: 10, y: 10}];
 let food = {x: 15, y: 15};
@@ -71,6 +73,7 @@ let inputQueue = [];
 
 let gameInterval; //used to stop the game later
 let isGameRunning = false;
+let isPaused = false;
 let newHighScoreReached = false;
 
 //Mobile
@@ -99,6 +102,15 @@ function startGame() {
     gameInterval = setInterval(gameLoop, 100);
 }
 
+function togglePause() {
+    if (!isGameRunning) return;
+    isPaused = !isPaused;
+    if (isPaused) {
+        pauseOverlay.style.display = "block";
+    } else {
+        pauseOverlay.style.display = "none";
+    }
+}
 function gameOver() {
     clearInterval(gameInterval);
     isGameRunning = false;
@@ -116,60 +128,61 @@ function showHighScoreForm() {
     usernameInput.focus();
 }
 
-if(cancelBtn) {
-    cancelBtn.addEventListener("click", () => {
-        highscoreForm.style.display = "none";
-        controlsOverlay.style.display = "none";
-        usernameInput.value = "";
-    })
+function cancelForm() {
+    highscoreForm.style.display = "none";
+    controlsOverlay.style.display = "flex";
+    startBtn.textContent = "Play Again";
+    usernameInput.value = "";
 }
-// Submit Score to Firebase
-if(submitScoreBtn) {
-    submitScoreBtn.addEventListener("click", async () => {
-        let rawInput = usernameInput.value || "username";
-        //clean input against XSS attacks
-        const username = rawInput.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
-        const user = auth.currentUser;
 
-        if (user) {
-            try {
-                submitScoreBtn.textContent = "Saving...";
-                submitScoreBtn.disabled = true;
-                // Save to 'snake_scores' collection in the user's public data area
-                const scoresCollection = collection(db, 'snake_scores');
-                
-                await addDoc(scoresCollection, {
-                    name: username,
-                    score: score,
-                    timestamp: Date.now(),
-                    uid: user.uid
-                });
-                
-                console.log("Score saved!");
-                highscoreForm.style.display = "none";
-                controlsOverlay.style.display = "flex";
-                startBtn.textContent = "Play Again";
-                
-                // Refresh leaderboard
-                loadLeaderboard();
-                
-            } catch (e) {
-                console.error("Error adding score: ", e);
-                alert("Could not save score. Check console.");
-            } finally {
-                submitScoreBtn.textContent = "Submit";
-                submitScoreBtn.disabled = false;
-            }
-        } else {
-            alert("Not connected to leaderboard.");
+// Submit Score to Firebase
+async function submitScore() {
+    let rawInput = usernameInput.value || "username";
+    //clean input against XSS attacks
+    const username = rawInput.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+    const user = auth.currentUser;
+
+    if (user) {
+        try {
+            submitScoreBtn.textContent = "Saving...";
+            submitScoreBtn.disabled = true;
+            // Save to 'snake_scores' collection in the user's public data area
+            const scoresCollection = collection(db, 'snake_scores');
+            
+            await addDoc(scoresCollection, {
+                name: username,
+                score: score,
+                timestamp: Date.now(),
+                uid: user.uid
+            });
+            
+            console.log("Score saved!");
             highscoreForm.style.display = "none";
             controlsOverlay.style.display = "flex";
-            signInAnonymously(auth).then(() => {
-                alert("Reconnected! Try again.");
-            });
+            startBtn.textContent = "Play Again";
+            
+            // Refresh leaderboard
+            loadLeaderboard();
+            
+        } catch (e) {
+            console.error("Error adding score: ", e);
+            alert("Could not save score. Check console.");
+        } finally {
+            submitScoreBtn.textContent = "Submit";
+            submitScoreBtn.disabled = false;
         }
-    });
+    } else {
+        alert("Not connected to leaderboard.");
+        highscoreForm.style.display = "none";
+        controlsOverlay.style.display = "flex";
+        signInAnonymously(auth).then(() => {
+            alert("Reconnected! Try again.");
+        });
+    }
 }
+
+if(cancelBtn) { cancelBtn.addEventListener("click", cancelForm); }
+if(submitScoreBtn) { submitScoreBtn.addEventListener("click", submitScore); }
 
 // Load Leaderboard from Firebase
 async function loadLeaderboard() {
@@ -194,7 +207,7 @@ async function loadLeaderboard() {
             const safeName = entry.name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             return `
                 <li>
-                    <span>${index + 1}. ${entry.name}</span>
+                    <span>${index + 1}. ${safeName}</span>
                     <span>${entry.score}</span>
                 </li>
             `}).join('');
@@ -210,11 +223,10 @@ async function loadLeaderboard() {
 }
 
 function gameLoop() {
-    if (isGameRunning) {
-        processInput();
-        moveSnake();
-        drawGame();
-    }
+    if (!isGameRunning || isPaused) { return; }
+    processInput();
+    moveSnake();
+    drawGame();
 }
 
 function drawRect(x,y,color) {
@@ -325,7 +337,37 @@ document.addEventListener("keydown", (event) => {
         event.preventDefault();
     }
 
-    //link input to velocity
+    //keyboard shortcuts
+    //ESCAPE - pause game or cancel highscore form
+    if (event.code === "Escape") {
+        if (highscoreForm.style.display === "flex") {
+            cancelForm();
+        } else if (isGameRunning) {
+            togglePause();
+        }
+    }
+    //ENTER - submit form
+    if (event.code === "Enter") {
+        if (highscoreForm.style.display === "flex") {
+            submitScore();
+        } else if (!isGameRunning && highscoreForm.style.display === "none") {
+            startGame();
+        }
+    }
+    //SPACE or P - toggle pause
+    if ((event.code === "Space" || event.key.toLowerCase() === "p") && isGameRunning) {
+        togglePause();
+    }
+    //unpause game with any move key
+    if (isPaused) {
+        if (event.key === "ArrowUp" || event.key === "ArrowDown" || event.key === "ArrowLeft" || event.key === "ArrowRight" ||
+            event.key.toLowerCase() === "w" || event.key.toLowerCase() === "a" ||
+            event.key.toLowerCase() === "s" || event.key.toLowerCase() === "d") {
+            togglePause();
+        }
+    }
+
+    //DIRECTION; link input to velocity
     switch(event.key) {
         case "ArrowUp": case "w": inputQueue.push({ type: 'Up' }); break;
         case "ArrowDown": case "s": inputQueue.push({ type: 'Down' }); break;

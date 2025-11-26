@@ -40,14 +40,17 @@
                 <div class="controls" id="controls-overlay">
                     <button id="start-btn" class="btn">Start</button>
                 </div>
+                <!--Pause-->
+                <div id="pause-overlay" style="display: none;">PAUSED</div>
 
                 <!-- Highscore Input Form -->
                 <div class="highscore-form" id="highscore-form" style="display: none;">
                     <h2>New High Score!</h2>
                     <input type="text" id="username-input" maxlength="8" placeholder="your name" style="text-transform: uppercase;">
                     <div class="form-buttons">
+                        <button id="cancel-btn" class="btn btn-secondary">Cancel</button>
                         <button id="submit-score-btn" class="btn">Submit</button>
-                        <button id="cancel-btn" class="btn">Cancel</button>
+                        
                     </div>
                     
                 </div>
