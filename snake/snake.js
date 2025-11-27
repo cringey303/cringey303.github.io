@@ -57,6 +57,10 @@ const TILE_COUNT = canvas.width / GRID_SIZE; //400/20 = 20 tiles
 
 //Game vars
 let score = 0;
+//anti-tamper
+let _secureScore = 0;
+let gameStartTime = 0;
+const _salt = 5829104; //random num for XOR encryption
 let localhighScore = parseInt(localStorage.getItem("snakeHighScore")) || 0;
 //snake and food structure
 let snake = [{x: 10, y: 10}];
@@ -98,8 +102,20 @@ function startGame() {
     controlsOverlay.style.display = "none";
     highscoreForm.style.display = "none";
 
+    gameStartTime = Date.now();
+
     //run gameLoop every 100ms
     gameInterval = setInterval(gameLoop, 100);
+}
+
+function incrementScore() {
+    score++;
+    _secureScore = (score ^ _salt); //XOR with salt
+    scoreElement.textContent = score;
+}
+
+function isScoreValid() {
+    return (_secureScore ^ _salt) === score;
 }
 
 function togglePause() {
@@ -111,10 +127,16 @@ function togglePause() {
         pauseOverlay.style.display = "none";
     }
 }
+
 function gameOver() {
     clearInterval(gameInterval);
     isGameRunning = false;
 
+    if (isCheating()) {
+        controlsOverlay.style.display = "flex";
+        startBtn.textContent = "Play Again";
+        return;
+    }
     if (newHighScoreReached) {
         showHighScoreForm();
     } else {
@@ -135,8 +157,21 @@ function cancelForm() {
     usernameInput.value = "";
 }
 
+function isCheating() {
+    const timeElapsed = Date.now() - gameStartTime;
+    const maxPossibleScore = Math.floor(timeElapsed/200);
+    if (!isScoreValid() || score > maxPossibleScore) {
+        alert("Begone H4CK3R HAHA. Don't mess with the score.");
+        return true;
+    }
+}
+
 // Submit Score to Firebase
 async function submitScore() {
+    if (isCheating()) {
+        cancelForm();
+        return;
+    }
     let rawInput = usernameInput.value || "username";
     //clean input against XSS attacks
     const username = rawInput.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
@@ -224,6 +259,9 @@ async function loadLeaderboard() {
 
 function gameLoop() {
     if (!isGameRunning || isPaused) { return; }
+    //anti-debug; when devtools open, the program hits breakpoint every 100ms
+    (function(){debugger;})();
+    
     processInput();
     moveSnake();
     drawGame();
@@ -295,7 +333,7 @@ function moveSnake() {
     //did the snake eat food?
     if (head.x == food.x && head.y == food.y) {
         //update score and highscore
-        score++;
+        incrementScore();
         scoreElement.textContent = score;
         //update highscore
         if (score > localhighScore) {
