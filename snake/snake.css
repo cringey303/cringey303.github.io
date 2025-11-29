@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 /* --- CSS Variables --- */
 :root {
     --bg-color: #121212;
@@ -11,7 +12,7 @@
     --border-color: #333;
     --apple-color: rgb(163, 61, 61);
     --trophy-color: rgb(197, 197, 31);
-    --font-family: 'Courier New', Courier, monospace;
+    --font-family: 'Press Start 2P';
 }
 
 /* --- General Styles & Reset --- */
