@@ -74,8 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         container.addEventListener('mouseenter', () => {
             // The play() method returns a promise, which can cause an error in some browsers if interrupted.
-            // We catch it to prevent console noise.
-            video.currentTime = 49;
+            // catch it to prevent console noise.
+            const startTime = container.getAttribute('data-start') || 49;
+            video.currentTime = startTime;
             video.play().catch(error => {});
         });
 
