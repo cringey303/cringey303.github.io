@@ -312,6 +312,8 @@ nav {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
 }
 
 .project-card:hover {
@@ -357,17 +359,44 @@ nav {
 }
 
 /* --- Project-specific video adjustments --- */
-/* Nudge the CourseMap video down so more of the lower frame is visible */
-.coursemap-video {
-    object-fit: contain;
-    object-position: center 60%;
-    transform: translateY(100%);
+.project-card {
+    position: relative;
+}
+/* 2. When hovering the wrapper... */
+.expand-video:hover {
+    /* Allow the video to stick out of the box */
+    overflow: visible;
+
+    /* keep the wrapper physically in place so the card size doesn't collapse */
+    position: static;
+    z-index: 10;
+}
+/* 3. The Video Transformation */
+.expand-video:hover .coursemap-video {
+    /* Break out of the wrapper and fill the PROJECT CARD */
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    display: block;
+
+    /* Show the FULL phone screen (no cropping) */
+    object-fit: contain;
+
+    /* Center it */
+    object-position: center;
+
+    /* Cover the text behind it with a dark background */
+    background-color: var(--card-bg-color);
+
+    /* Match the card's rounded corners */
+    border-radius: 12px;
+
+    /* Ensure it sits on top of the text */
+    z-index: 20;
+
+    /* Reset any previous zoom/transform effects */
     transform: none !important;
-    /* disable existing scale transform */
-    background: #000;
 }
 
 .project-tags {
