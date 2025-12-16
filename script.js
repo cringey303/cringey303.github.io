@@ -85,6 +85,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    //FIX**
+    // // Custom position for each image
+    // const img = document.querySelectorAll('.img-pos');
+
+    // img.forEach(container => {
+    //     const img = container.querySelector('video.poster');
+    //     if (!img) return;
+
+    //     const imgPos = container.getAttribute('img-pos');
+    //     img.position = imgPos;
+    // })
+
     // --- Cursor link hover effect ---
     const interactiveElements = document.querySelectorAll('a, .btn, .lightbox-trigger, .nav-logo');
     const body = document.querySelector('body');

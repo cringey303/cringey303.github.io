@@ -362,7 +362,6 @@ nav {
 .project-card {
     position: relative;
 }
-/* 2. When hovering the wrapper... */
 .expand-video:hover {
     /* Allow the video to stick out of the box */
     overflow: visible;
@@ -371,7 +370,6 @@ nav {
     position: static;
     z-index: 10;
 }
-/* 3. The Video Transformation */
 .expand-video:hover .coursemap-video {
     /* Break out of the wrapper and fill the PROJECT CARD */
     position: absolute;
@@ -380,22 +378,13 @@ nav {
     width: 100%;
     height: 100%;
 
-    /* Show the FULL phone screen (no cropping) */
-    object-fit: contain;
+    object-fit: cover; /* contain */
+    object-position: center 65%;
 
-    /* Center it */
-    object-position: center;
-
-    /* Cover the text behind it with a dark background */
+    /* cover the text behind it with a dark background */
     background-color: var(--card-bg-color);
-
-    /* Match the card's rounded corners */
     border-radius: 12px;
-
-    /* Ensure it sits on top of the text */
-    z-index: 20;
-
-    /* Reset any previous zoom/transform effects */
+    z-index: 20; /* over the text */
     transform: none !important;
 }
 
