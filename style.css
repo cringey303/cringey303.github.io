@@ -140,6 +140,10 @@ nav {
     color: black;
 }
 
+.btn-icon {
+    size: 100%;
+}
+
 /* --- Projects (The Raw Grid) --- */
 .project-grid {
     display: grid;
@@ -205,6 +209,12 @@ nav {
     padding: 2px 8px;
     font-size: 0.8rem;
     color: var(--text-muted);
+}
+
+.project-links {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
 }
 
 /* --- Expanding Video Logic --- */
