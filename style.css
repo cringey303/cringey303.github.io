@@ -37,6 +37,17 @@ body {
     padding: 0 5%;
 }
 
+.hero-content .subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.hero-content .description {
+    max-width: 600px;
+    margin-top: 1rem;
+}
+
 /* --- Typography --- */
 h1,
 h2,
