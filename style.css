@@ -121,6 +121,18 @@ nav {
     fill: var(--text-main);
 }
 
+.location-wrapper {
+    margin-top: 1rem;
+}
+
+.location-wrapper:hover {
+    color: var(--accent);
+}
+
+.location-wrapper i {
+    color: var(--text-main);
+}
+
 /* --- Buttons (Hard Rectangles) --- */
 .hero-buttons {
     margin-top: 1rem;
