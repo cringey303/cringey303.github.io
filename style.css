@@ -26,7 +26,15 @@ body {
     font-family: var(--font-main);
     line-height: 1.4;
     cursor: none;
-    /* Keep custom cursor */
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    text-align: left;
+    padding: 0 5%;
 }
 
 /* --- Typography --- */
