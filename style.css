@@ -1,5 +1,3 @@
-/* style.css - Option 4: The Bare Metal */
-
 :root {
     --bg-color: #000000;
     --text-main: #e0e0e0;
@@ -141,7 +139,8 @@ nav {
 }
 
 .btn-icon {
-    size: 100%;
+    font-size: 1.7rem;
+    margin-left: auto;
 }
 
 /* --- Projects (The Raw Grid) --- */
@@ -161,6 +160,8 @@ nav {
 }
 
 .project-card {
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--border);
     padding: 10px;
     background: black;
@@ -198,7 +199,7 @@ nav {
 }
 
 .project-tags {
-    margin-top: 1rem;
+    margin-top: auto;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
