@@ -1,19 +1,18 @@
-/* style.css */
+/* style.css - Option 4: The Bare Metal */
 
-/* --- CSS Variables --- */
 :root {
-    --bg-color: #121212;
-    --primary-text-color: #e0e0e0;
-    --secondary-text-color: #a0a0a0;
-    --accent-color: #007bff;
-    --accent-color-hover: #0056b3;
-    --card-bg-color: #1e1e1e;
-    --border-color: #333;
-    --font-family: 'Courier New', Courier, monospace;
+    --bg-color: #000000;
+    --text-main: #e0e0e0;
+    --accent: #254fce;
+    /* Terminal Green */
+    --border: #333333;
+    --card-bg: #000000;
+    --font-main: 'Courier New', Courier, monospace;
 }
 
-/* --- General Styles & Reset --- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -21,521 +20,259 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px; /* Offset for fixed header */
 }
 
 body {
     background-color: var(--bg-color);
-    color: var(--primary-text-color);
-    font-family: var(--font-family);
-    line-height: 1.6;
+    color: var(--text-main);
+    font-family: var(--font-main);
+    line-height: 1.4;
     cursor: none;
+    /* Keep custom cursor */
 }
 
-h1, h2, h3 {
-    line-height: 1.2;
-    color: white;
+/* --- Typography --- */
+h1,
+h2,
+h3 {
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--text-main);
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
-h1 { font-size: 3rem; margin-bottom: 1rem; }
-h2 { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; }
-h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+h1 {
+    font-size: 2.5rem;
+    border-bottom: 2px solid var(--accent);
+    margin-top: 10vh;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-top: 4rem;
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+}
 
 p {
-    color: var(--secondary-text-color);
-    margin-bottom: 1rem;
+    max-width: 60ch;
+    margin-bottom: 1.5rem;
 }
 
 a {
-    color: var(--accent-color);
-    text-decoration: none;
-    transition: color 0.3s ease;
+    color: var(--text-main);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
 }
 
 a:hover {
-    color: var(--accent-color);
+    background-color: var(--text-main);
+    color: var(--bg-color);
+    text-decoration: none;
 }
 
-/* Enforce custom cursor on all interactive elements */
-a, .btn {
-    cursor: none;
-}
-
+/* --- Layout --- */
 section {
-    padding: 6rem 2rem;
-    max-width: 1200px;
+    padding: 2rem;
+    max-width: 900px;
     margin: 0 auto;
+    border-left: 1px dashed var(--border);
+    /* Guide line on left */
+    min-height: 100vh;
 }
 
-/* --- Header & Navigation --- */
+/* --- Navigation --- */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(18, 18, 18, 0.8);
-    backdrop-filter: blur(10px);
+    background: var(--bg-color);
+    border-bottom: 1px solid var(--text-main);
     z-index: 1000;
-    border-bottom: 1px solid var(--border-color);
+    padding: 10px 0;
 }
 
 nav {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    padding: 0 2rem;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 1rem 2rem;
-}
-
-.nav-logo {
-    display: flex; /* Ensures the image is aligned */
-    align-items: left;
-}
-
-.nav-logo svg {
-    height: 40px; /* logo size */
-    width: auto;  /* maintain aspect ratio */
-    fill: var(--accent-color); /* default color */
-    transition: fill 0.3s ease;
-}
-
-.nav-logo:hover svg {
-    fill: var(--accent-color); /* Set the hover color */
+    align-items: center;
 }
 
 .nav-links {
-    list-style: none;
     display: flex;
     gap: 2rem;
+    list-style: none;
 }
 
-.nav-links a {
-    color: var(--primary-text-color);
-    font-weight: 500;
-    position: relative;
-    text-decoration: none;
+.nav-logo svg {
+    height: 25px;
+    fill: var(--text-main);
 }
 
-.nav-links a:hover, .nav-links a.active {
-    color: var(--accent-color);
-}
-
-/* Animated wavy underline for nav links */
-@keyframes move-wave {
-    from { background-position-x: 0; }
-    to { background-position-x: -20px; } /* same as background-size */
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px; /* Position the underline */
-    width: 0%;
-    height: 4px;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3e%3cpath d='M0 2 Q 5 0, 10 2 T 20 2' stroke='%23ffffffff' fill='none' stroke-width='1.5'/%3e%3c/svg%3e");
-    background-repeat: repeat-x;
-    background-size: 20px; /* width of one wave segment */
-    transition: width 0.3s ease-out;
-    color: #007bff;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-    animation: none; /* Prevent animation conflict when hovering over the active link */
-}
-
-.nav-links a.active::after {
-    width: 100%;
-    animation: move-wave 1s linear infinite;
-}
-
-/* --- Progress Bar --- */
-.progress-container {
-    position: fixed;
-    top: calc(2rem + 36.86px); /* move below the nav header */
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: transparent;
-    z-index: 1001; /* above header */
-}
-
-.progress-bar {
-    height: 4px;
-    background: var(--accent-color);
-    width: 0%;
-}
-
-/* --- Hero Section --- */
-.hero {
-    min-height: 100vh;
+/* --- Buttons (Hard Rectangles) --- */
+.hero-buttons {
+    margin-top: 1rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 5%;
-}
-.hero-content {
-    z-index: 2;
-}
-.hero-content .subtitle { font-size: 1.5rem; color: var(--primary-text-color); font-weight: 500; }
-.hero-content .description { max-width: 600px; margin: 1rem auto 2rem; }
-
-/* Location */
-.location-wrapper {
-    position: absolute;
-    top: 83px;
-    left: 2rem;
-
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    font-family: var(--font-family);
-    font-size: 0.9rem;
-    color: var(--secondary-text-color);
-    font-weight: 100;
-    letter-spacing: .06em;
-    z-index: 10;
-}
-.location-wrapper:hover {
-    color: var(--accent-color-hover);
-    cursor: help;
-}
-.location-wrapper i {
-    color: var(--accent-color);
-}
-.btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.btn-primary {
-    background-color: var(--accent-color);
-    color: white;
-}
-.btn-primary:hover {
-    background-color: var(--accent-color-hover);
-    color: white;
-    transform: translateY(-3px);
-}
-
-.btn-secondary {
-    background-color: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--primary-text-color);
-}
-.btn-secondary:hover {
-    background-color: var(--border-color);
-    transform: translateY(-3px);
-}
-
-.hero-buttons { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
-.social-links { display: flex; gap: 1.5rem; justify-content: center; font-size: 1.75rem; }
-
-/* --- About Section --- */
-.about-container {
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.about-text {
-    flex: 1; /* Allows the text block to take up remaining space */
-}
-
-.about-images {
-    flex: 0 0 40%; /* Sets the image container to be about 40% of the width */
-    display: flex;
-    flex-direction: column;
     gap: 1rem;
 }
 
-.about-images img {
-    width: 100%;
-    border-radius: 8px;
-}
-
-.about-images video {
-    width: 100%;
-    height: 250px;
-    border-radius: 8px;
-    display:block;
-    object-fit: cover;
-}
-
-.hover-trigger {
-    cursor: none; /* Keeps your custom cursor consistent */
-    transition: transform 0.3s ease;
-}
-
-.lightbox {
-    display: none;
-    position: fixed;
-    z-index: 1002;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-}
-.lightbox-content {
-    max-width: 90%;
-    max-height: 80%;
-}
-.about-images img.lightbox-trigger {
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid var(--text-main);
+    background: black;
+    color: var(--text-main);
+    font-family: var(--font-main);
+    text-decoration: none;
     cursor: none;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: 0s;
+    /* Instant change, no smooth fade */
 }
-.about-images img.lightbox-trigger:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-/* --- Projects Section --- */
+.btn:hover {
+    background: var(--text-main);
+    color: black;
+}
+
+/* --- Projects (The Raw Grid) --- */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    /* Single column looks more raw */
+    gap: 4rem;
+    margin-top: 2rem;
+}
+
+/* Media query for wider screens to go 2 columns */
+@media (min-width: 768px) {
+    .project-grid {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .project-card {
-    background-color: var(--card-bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
+    border: 1px solid var(--border);
+    padding: 10px;
+    background: black;
     position: relative;
-    overflow: hidden;
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border-color: var(--accent);
 }
 
-.project-card img {
-    width: 100%;
-    height: 200px; /* Set a fixed height for all project images */
-    object-fit: cover; /* This will crop the image to fit without distorting it */
-    object-position: top;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
-}
-
-/* Wrapper for images that need a zoom/scale effect. The wrapper
-   defines the clipping box (overflow:hidden) and preserves border-radius. */
 .img-zoom-wrapper {
     width: 100%;
-    height: 200px; /* match project-card img height */
-    overflow: hidden; /* clip the scaled image inside this box */
-    border-radius: 8px; /* ensure same rounding as images */
+    aspect-ratio: 4/3;
+    /* Old school ratio */
+    overflow: hidden;
+    border: 1px solid var(--border);
     margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
+    background: #111;
 }
 
-/* Apply these styles to both images and videos inside the wrapper */
-.img-zoom-wrapper img, .img-zoom-wrapper video {
+.img-zoom-wrapper img,
+.img-zoom-wrapper video {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* keep the image cover behavior */
-    object-position: top; /* Aligns the image content to the top of the container, preventing vertical shift */
-    transform: scale(var(--initial-scale, 1.4)); /* scale the image */
-    transform-origin: center center;
-    transition: transform 0.4s ease;
+    object-fit: cover;
+    filter: grayscale(100%);
+    /* Make images Black & White */
+    transition: 0s;
 }
 
-.img-zoom-wrapper:hover img, .img-zoom-wrapper:hover video {
-    /* slightly reduce scale on hover to create a subtle effect */
-    transform: scale(var(--hover-scale, 1.25));
-}
-
-/* --- Project-specific video adjustments --- */
-.project-card {
-    position: relative;
-}
-.expand-video:hover {
-    /* Allow the video to stick out of the box */
-    overflow: visible;
-
-    /* keep the wrapper physically in place so the card size doesn't collapse */
-    position: static;
-    z-index: 10;
-}
-.expand-video:hover .coursemap-video {
-    /* Break out of the wrapper and fill the PROJECT CARD */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover; /* contain */
-    object-position: center 65%;
-
-    /* cover the text behind it with a dark background */
-    background-color: var(--card-bg-color);
-    border-radius: 12px;
-    z-index: 20; /* over the text */
-    transform: none !important;
+.project-card:hover img,
+.project-card:hover video {
+    filter: grayscale(0%);
+    /* Color on hover */
 }
 
 .project-tags {
+    margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: auto;
-    margin-bottom: 1.5rem;
+    gap: 10px;
 }
 
 .project-tags span {
-    background-color: rgba(0, 123, 255, 0.1);
-    color: var(--accent-color);
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 2px 8px;
     font-size: 0.8rem;
-    font-weight: 500;
+    color: var(--text-muted);
 }
 
-.project-links {
-    display: flex;
-    align-items: center;
+/* --- Expanding Video Logic --- */
+.expand-video:hover {
+    overflow: visible;
+    position: static;
+    z-index: 50;
 }
 
-.btn-icon {
-    font-size: 1.5rem;
-    margin-left: auto;
-}
-
-/* --- Contact Section --- */
-.contact {
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-}
-.contact p {
-    margin-bottom: 2rem;
+.expand-video:hover .coursemap-video {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    object-fit: contain;
+    background: black;
+    z-index: 60;
+    border: 1px solid var(--accent);
 }
 
 /* --- Footer --- */
 footer {
+    padding: 4rem 2rem;
     text-align: center;
-    padding: 2rem;
-    border-top: 1px solid var(--border-color);
-    color: var(--secondary-text-color);
+    border-top: 1px dashed var(--border);
 }
 
-/* --- Custom Cursor Styles --- */
+.social-links {
+    display: flex;
+    justify-content: left;
+    gap: 2rem;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+/* --- Raw Cursor (Block) --- */
 .cursor-dot {
     position: fixed;
     top: 0;
     left: 0;
-    width: 8px;
-    height: 8px;
-    background-color: var(--primary-text-color);
-    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    background-color: var(--accent);
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 9999;
-    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    mix-blend-mode: difference;
+    /* Inverts colors behind it */
 }
 
+/* Hide the circle for this theme */
 .cursor-circle {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 40px;
-    height: 40px;
-    border: 2px solid var(--primary-text-color);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.3s ease-out, width 0.3s ease-out, height 0.3s ease-out, border-width 0.3s ease-out;
+    display: none;
 }
 
-/* --- Custom Cursor Hover Effects --- */
+/* Hover effect: Cursor gets bigger */
 body.link-hovered .cursor-dot {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5);
+    width: 30px;
+    height: 30px;
 }
-
-body.link-hovered .cursor-circle {
-    transform: translate(-50%, -50%) scale(1.5);
-    border-width: 1px;
-}
-
-/* --- Custom Scrollbar --- */
-
-/* for webkit browsers */
-::-webkit-scrollbar {
-    width: 0px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-color);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--border-color);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: var(--accent-color);
-}
-
-/* for firefox */
-html {
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-color) var(--bg-color);
-}
-
-/* For internet explorer and old edge */
-body {
-    -ms-overflow-style: auto;
-}
-
-/* --- Fullscreen Fixes --- */
-:fullscreen {
-    cursor: default !important;
-}
-
-/* broader browser support */
-:-webkit-full-screen {
-    cursor: default !important;
-}
-
-:-moz-full-screen {
-    cursor: default !important;
-}
-
-:-ms-fullscreen {
-    cursor: default !important;
-}
-
-/* -----Mobile----- */
 
 @media (max-width: 768px) {
-    .cursor-circle, 
     .cursor-dot {
         display: none;
     }
 
-    body, a, .btn, .about-images img.lightbox-trigger {
-        cursor: auto;
-    }
-
-    .about-images video {
-        height: 200px;
+    body {
         cursor: auto;
     }
 }
