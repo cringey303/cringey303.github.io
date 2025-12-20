@@ -1,11 +1,11 @@
-/* style.css - Supreme Theme */
+/* style.css - Supreme */
 
 :root {
     --bg-color: #000000;
-    --text-color: #ffffff;
+    --text-color: rgb(255,255,255);
     --supreme-red: #DA291C;
-    /* The official Supreme Red */
-    --font-mono: Courier New, Courier, monospace;
+    --font-mono: 'Courier New', Courier, monospace;
+    --font-size: 12px;
 }
 
 * {
@@ -18,19 +18,18 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-mono);
+    font-size: var(--font-size);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    text-align: left;
 }
 
 .supreme-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 400px;
+    align-items: left;
 }
 
 /* --- The Timestamp --- */
@@ -46,18 +45,20 @@ body {
     flex-direction: column;
     gap: 1.5rem;
     margin-bottom: 6rem;
+    align-items: flex-start;
 }
 
 .supreme-nav a {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-size: var(--font-size);
+    padding: 2px;
 }
 
 .supreme-nav a:hover {
-    text-decoration: underline;
-    /* Simple hover like the original site */
+    background-color: var(--supreme-red);
+    color: var(--text-color);
+    text-decoration: none;
 }
 
 /* --- Footer Icons --- */
@@ -74,7 +75,7 @@ body {
 }
 
 .supreme-footer a:hover {
-    opacity: 1;
+    opacity: 3;
 }
 
 /* Mobile Responsive */
