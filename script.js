@@ -152,49 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Wandering Snake -- //
-    const snake = document.createElement('a');
-    snake.href = 'snake/';
-    snake.target = '_blank';
-    snake.textContent = '🐍';
-    snake.style.position = 'fixed';
-    snake.style.fontSize = '2.5rem';
-    snake.style.textDecoration = 'none';
-    snake.style.zIndex = '2147483647'; // show above everything
-    snake.style.userSelect = 'none';
-    snake.style.cursor = 'none';
-    snake.style.opacity = '0.4'
-    document.body.appendChild(snake);
-
-    //animation vars
-    //x,y random spawn
-    let x = Math.random() * (window.innerWidth - 50);
-    let y = Math.random() * (window.innerHeight - 50);
-    //speed
-    let dx = 1;
-    let dy = 1;
-
-    //movement logic (dvd logo)
-    function animateSnake() {
-        const { innerWidth, innerHeight } = window;
-        x += dx;
-        y += dy;
-        // bounce off left/right walls
-        if (x + 40 >= innerWidth || x <= 0) {
-            dx = -dx;
-        }
-        //top/bottom
-        if (y + 40 >= innerHeight || y <= 0) {
-            dy = -dy;
-        }
-        // Apply new position
-        snake.style.left = `${x}px`;
-        snake.style.top = `${y}px`;
-
-        requestAnimationFrame(animateSnake);
-    }
-    animateSnake();
-
     //custom Cursor integration
     snake.addEventListener('mouseenter', () => body.classList.add('link-hovered'));
     snake.addEventListener('mouseleave', () => body.classList.remove('link-hovered'));

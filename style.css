@@ -70,12 +70,11 @@ body {
 }
 
 .supreme-footer a {
-    color: var(--text-color);
-    transition: opacity 0.2s;
+    color: rgb(199, 199, 199);
 }
 
 .supreme-footer a:hover {
-    opacity: 3;
+    color: rgb(255, 255, 255);
 }
 
 /* Mobile Responsive */
