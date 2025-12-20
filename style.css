@@ -32,15 +32,19 @@ body {
 }
 
 .hero {
+    position: relative;
+    overflow: hidden;
     min-height: 100vh;
     display: flex;
     justify-content: left;
-    /* Kept Left Aligned */
     align-items: center;
     text-align: left;
-    /* Kept Left Aligned */
 }
 
+.hero-content {
+    position: relative;
+    z-index: 10;
+}
 .hero-content .subtitle {
     font-size: 1rem;
     font-weight: 500;
@@ -103,13 +107,12 @@ section {
     min-height: 100vh;
 }
 
-/* --- Navigation (Updated to Transparent) --- */
+/* --- Nav --- */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    /* Transparent Dark Background + Blur */
     background: rgba(17, 17, 17, 0.85);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--text-main);
@@ -122,7 +125,6 @@ nav {
     justify-content: space-between;
     padding: 0 2rem;
     max-width: 1200px;
-    /* Match section width */
     margin: 0 auto;
     align-items: center;
 }
@@ -464,15 +466,13 @@ body.link-hovered .cursor-dot {
 
 /* Container that covers the screen */
 .snowing {
-    position: fixed;
-    top: 0;
+    position: absolute;
+    top: -300px;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 9999;
-    /* Ensures it sits on top */
+    z-index: 0;
     pointer-events: none;
-    /* Allows you to click through the snow */
     overflow: hidden;
 }
 
