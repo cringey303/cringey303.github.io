@@ -365,9 +365,17 @@ body.link-hovered .cursor-dot {
     .cursor-dot {
         display: none;
     }
-
     body {
         cursor: auto;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    .hero-buttons .btn {
+        width: 100%;
+        text-align: center;
     }
 }
 
