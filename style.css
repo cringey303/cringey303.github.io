@@ -1,3 +1,5 @@
+/* style.css - Final Redesign */
+
 :root {
     --bg-color: #111111;
     --text-main: #e0e0e0;
@@ -17,6 +19,8 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    /* Offset for scroll */
 }
 
 body {
@@ -31,9 +35,10 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: left;
+    /* Kept Left Aligned */
     align-items: center;
     text-align: left;
-    padding: 0 5%;
+    /* Kept Left Aligned */
 }
 
 .hero-content .subtitle {
@@ -89,23 +94,26 @@ a:hover {
     text-decoration: none;
 }
 
-/* --- Layout --- */
+/* --- Layout (Updated to Full Width) --- */
 section {
-    padding: 2rem;
-    max-width: 900px;
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    /* Increased from 900px */
     margin: 0 auto;
-    border-left: 1px dashed var(--border);
-    /* Guide line on left */
+    border-left: none;
+    /* Removed the dashed guide line */
     min-height: 100vh;
 }
 
-/* --- Navigation --- */
+/* --- Navigation (Updated to Transparent) --- */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: var(--bg-color);
+    /* Transparent Dark Background + Blur */
+    background: rgba(17, 17, 17, 0.85);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--text-main);
     z-index: 1000;
     padding: 10px 0;
@@ -115,6 +123,8 @@ nav {
     display: flex;
     justify-content: space-between;
     padding: 0 2rem;
+    max-width: 1200px;
+    /* Match section width */
     margin: 0 auto;
     align-items: center;
 }
@@ -125,11 +135,34 @@ nav {
     list-style: none;
 }
 
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
 .nav-logo svg {
     height: 25px;
     fill: var(--text-main);
 }
 
+/* --- Scroll Progress Bar (Added) --- */
+.progress-container {
+    position: fixed;
+    /* Adjust top to sit right under header border (approx 46px) */
+    top: 42px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: transparent;
+    z-index: 1001;
+}
+
+.progress-bar {
+    height: 4px;
+    background: var(--accent);
+    width: 0%;
+}
+
+/* --- Location & KU Text --- */
 .location-wrapper {
     margin-top: 1rem;
 }
@@ -144,34 +177,26 @@ nav {
 
 .ku-text {
     font-size: x-large;
-    /* 1. Define the Red and Blue Gradient */
     background: linear-gradient(90deg,
             #E8000D 0%,
             #0051BA 25%,
             #E8000D 50%,
             #0051BA 75%,
             #E8000D 100%);
-
-    /* 2. Stretch it so we can move it */
     background-size: 200% auto;
-
-    /* 3. Clip the background to the text shapes */
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
-
-    /* 4. Animate it moving */
     animation: snakeMove 7s linear infinite;
 }
 
-/* The Movement Animation */
 @keyframes snakeMove {
     to {
         background-position: 200% center;
     }
 }
 
-/* --- Buttons (Hard Rectangles) --- */
+/* --- Buttons --- */
 .hero-buttons {
     margin-top: 1rem;
     display: flex;
@@ -188,7 +213,6 @@ nav {
     text-decoration: none;
     cursor: none;
     transition: 0s;
-    /* Instant change, no smooth fade */
 }
 
 .btn:hover {
@@ -201,19 +225,25 @@ nav {
     margin-left: auto;
 }
 
-/* --- Projects (The Raw Grid) --- */
+/* --- Projects --- */
 .project-grid {
     display: grid;
     grid-template-columns: 1fr;
-    /* Single column looks more raw */
     gap: 4rem;
     margin-top: 2rem;
 }
 
-/* Media query for wider screens to go 2 columns */
+/* Tablet: 2 columns */
 @media (min-width: 768px) {
     .project-grid {
         grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Desktop: 3 columns */
+@media (min-width: 1024px) {
+    .project-grid {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }
 
@@ -233,7 +263,6 @@ nav {
 .img-zoom-wrapper {
     width: 100%;
     aspect-ratio: 4/3;
-    /* Old school ratio */
     overflow: hidden;
     border: 1px solid var(--border);
     margin-bottom: 1rem;
@@ -245,13 +274,9 @@ nav {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Make images Black & White */
+    /* Kept colored (no filter) */
     transition: 0s;
 }
-
-/* .project-card:hover img,
-.project-card:hover video {
-} */
 
 .project-tags {
     margin-top: auto;
@@ -265,7 +290,8 @@ nav {
     border: 1px solid var(--border);
     padding: 2px 8px;
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: var(--text-main);
+    /* Changed from muted for better readability on black */
 }
 
 .project-links {
@@ -295,7 +321,7 @@ nav {
 
 /* --- Footer --- */
 footer {
-    padding: 4rem 2rem;
+    padding-top: 1rem;
     text-align: center;
     border-top: 1px dashed var(--border);
 }
@@ -308,7 +334,7 @@ footer {
     font-size: 1.5rem;
 }
 
-/* --- Raw Cursor (Block) --- */
+/* --- Raw Cursor --- */
 .cursor-dot {
     position: fixed;
     top: 0;
@@ -320,15 +346,12 @@ footer {
     pointer-events: none;
     z-index: 9999;
     mix-blend-mode: difference;
-    /* Inverts colors behind it */
 }
 
-/* Hide the circle for this theme */
 .cursor-circle {
     display: none;
 }
 
-/* Hover effect: Cursor gets bigger */
 body.link-hovered .cursor-dot {
     width: 30px;
     height: 30px;
