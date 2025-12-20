@@ -1,725 +1,90 @@
-/* style.css - Final Redesign */
+/* style.css - Supreme Theme */
 
 :root {
-    --bg-color: #111111;
-    --text-main: #e0e0e0;
-    --accent: #254fce;
-    --border: #333333;
-    --card-bg: #000000;
-    --font-main: 'Courier New', Courier, monospace;
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --supreme-red: #DA291C;
+    /* The official Supreme Red */
+    --font-mono: Courier New, Courier, monospace;
 }
 
-*,
-*::before,
-*::after {
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 80px;
-    /* Offset for scroll */
-}
-
 body {
     background-color: var(--bg-color);
-    color: var(--text-main);
-    font-family: var(--font-main);
-    line-height: 1.4;
-    cursor: none;
-}
-
-.hero {
-    position: relative;
-    overflow: hidden;
-    min-height: 100vh;
+    color: var(--text-color);
+    font-family: var(--font-mono);
+    height: 100vh;
     display: flex;
-    justify-content: left;
-    align-items: center;
-    text-align: left;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 10;
-}
-.hero-content .subtitle {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-}
-
-.hero-content .description {
-    max-width: 600px;
-    margin-top: 1rem;
-}
-
-/* --- Typography --- */
-h1,
-h2,
-h3 {
-    font-weight: normal;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid var(--text-main);
-    display: inline-block;
-    padding-bottom: 5px;
-}
-
-h1 {
-    font-size: 2.5rem;
-    border-bottom: 2px solid var(--accent);
-    margin-top: 10vh;
-}
-
-h2 {
-    font-size: 1.5rem;
-    margin-top: 4rem;
-    width: 100%;
-    border-bottom: 1px solid var(--border);
-}
-
-p {
-    max-width: 60ch;
-    margin-bottom: 1.5rem;
-}
-
-a {
-    color: var(--text-main);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-}
-
-a:hover {
-    background-color: var(--text-main);
-    color: var(--bg-color);
-    text-decoration: none;
-}
-
-/* --- Layout (Updated to Full Width) --- */
-section {
-    padding: 2rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-left: none;
-    min-height: 100vh;
-}
-
-/* --- Nav --- */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(17, 17, 17, 0.85);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--text-main);
-    z-index: 1000;
-    padding: 10px 0;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-items: center;
-}
-
-.nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-}
-
-.nav-logo {
-    display: flex;
-    align-items: center;
-}
-.nav-logo svg {
-    height: 25px;
-    fill: var(--text-main);
-}
-
-/* --- Scroll Progress Bar (Added) --- */
-.progress-container {
-    position: fixed;
-    /* Adjust top to sit right under header border (approx 46px) */
-    top: 42px;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: transparent;
-    z-index: 1001;
-}
-
-.progress-bar {
-    height: 4px;
-    background: var(--accent);
-    width: 0%;
-}
-
-/* --- Location & KU Text --- */
-.location-wrapper {
-    margin-top: 1rem;
-}
-
-.location-wrapper:hover {
-    color: var(--accent);
-}
-
-.location-wrapper i {
-    color: var(--text-main);
-}
-
-.ku-text {
-    font-size: x-large;
-    background: linear-gradient(90deg,
-            #E8000D 0%,
-            #0051BA 25%,
-            #E8000D 50%,
-            #0051BA 75%,
-            #E8000D 100%);
-    background-size: 200% auto;
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    animation: snakeMove 7s linear infinite;
-}
-
-@keyframes snakeMove {
-    to {
-        background-position: 200% center;
-    }
-}
-
-/* --- Buttons --- */
-.hero-buttons {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 1px solid var(--text-main);
-    background: black;
-    color: var(--text-main);
-    font-family: var(--font-main);
-    text-decoration: none;
-    cursor: none;
-    transition: 0s;
-}
-
-.btn:hover {
-    background: var(--text-main);
-    color: black;
-}
-
-.btn-icon {
-    font-size: 1.7rem;
-    margin-left: auto;
-}
-
-/* --- Projects --- */
-.project-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 4rem;
-    margin-top: 2rem;
-}
-
-/* Tablet: 2 columns */
-@media (min-width: 768px) {
-    .project-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-/* Desktop: 3 columns */
-@media (min-width: 1024px) {
-    .project-grid {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-}
-
-.project-card {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--border);
-    padding: 10px;
-    background: black;
-    position: relative;
-}
-
-.project-card:hover {
-    border-color: var(--accent);
-}
-
-.img-zoom-wrapper {
-    width: 100%;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    margin-bottom: 1rem;
-    background: #111;
-}
-
-.img-zoom-wrapper img,
-.img-zoom-wrapper video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: 0s;
-
-    /* custom image positions and zoom */
-    object-position: var(--img-pos, center top);
-    transform: scale(var(--img-zoom, 1));
-}
-
-.video-on-hover:hover img,
-.video-on-hover:hover video,
-.expand-video:hover img,
-.expand-video:hover video {
-    transform: scale(1) !important;
-    object-position: center center !important;
-}
-
-.project-tags {
-    margin-top: auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-}
-
-.project-tags span {
-    border: 1px solid var(--border);
-    padding: 2px 8px;
-    font-size: 0.8rem;
-    color: var(--text-main);
-    /* Changed from muted for better readability on black */
-}
-
-.project-links {
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-/* --- Expanding Video Logic --- */
-.expand-video:hover {
-    overflow: visible;
-    position: static;
-    z-index: 50;
-}
-
-.expand-video:hover .coursemap-video {
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    width: calc(100% + 2px);
-    height: calc(100% + 2px);
-    object-fit: contain;
-    background: black;
-    z-index: 60;
-    border: 1px solid var(--accent);
-}
-
-/* --- Footer --- */
-footer {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    text-align: center;
-    border-top: 1px dashed var(--border);
-}
-
-footer p {
-    max-width: none;
-    margin: 0;
-}
-
-.social-links {
-    display: flex;
-    justify-content: left;
-    gap: 2rem;
-    margin-top: 1rem;
-    font-size: 1.5rem;
-}
-
-/* --- Raw Cursor --- */
-.cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 15px;
-    height: 15px;
-    background-color: var(--accent);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: difference;
-}
-
-.cursor-circle {
-    display: none;
-}
-
-body.link-hovered .cursor-dot {
-    width: 30px;
-    height: 30px;
-}
-
-@media (max-width: 768px) {
-    .cursor-dot {
-        display: none;
-    }
-    body {
-        cursor: auto;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-    .hero-buttons .btn {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-/* lightbox */
-.lightbox {
-    display: none;
-    position: fixed;
-    z-index: 1002;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
-.lightbox-content {
-    max-width: 90%;
-    max-height: 80%;
-}
-
-.about-images img.lightbox-trigger {
-    cursor: none;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.about-images img.lightbox-trigger:hover {
-    transform: scale(1.03);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* --- About Section --- */
-.about-container {
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.about-text {
-    flex: 1;
-    /* Allows the text block to take up remaining space */
-}
-
-.about-images {
-    flex: 0 0 40%;
-    /* Sets the image container to be about 40% of the width */
+.supreme-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-}
-
-.about-images img {
+    align-items: center;
     width: 100%;
-    border-radius: 8px;
+    max-width: 400px;
 }
 
-.about-images video {
-    width: 100%;
-    height: 250px;
-    border-radius: 8px;
-    display: block;
-    object-fit: cover;
+/* --- The Timestamp --- */
+.timestamp {
+    font-size: 0.9rem;
+    margin-bottom: 4rem;
+    text-transform: uppercase;
 }
 
-/* --Contact-- */
-#contact {
-    min-height: auto;
-    /* Stop forcing full screen height */
-    padding-bottom: 4rem;
-    /* Reduce bottom padding since footer is right below */
+/* --- Navigation Links --- */
+.supreme-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 6rem;
 }
 
-/* Container that covers the screen */
-.snowing {
-    position: absolute;
-    top: -300px;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
+.supreme-nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
 
-/* --- Base Snow Styles --- */
-.snowing .small,
-.snowing .medium {
-    position: absolute;
-    background: #fff;
-    border-radius: 50%;
-    top: -100px;
-    /* Start above screen */
-    animation: snow-fall 12s linear infinite, snow-shake 4s ease-in-out infinite;
+.supreme-nav a:hover {
+    text-decoration: underline;
+    /* Simple hover like the original site */
 }
 
-.snowing .small {
-    width: 6px;
-    height: 6px;
+/* --- Footer Icons --- */
+.supreme-footer {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.2rem;
+    opacity: 0.6;
 }
 
-.snowing .medium {
-    width: 8px;
-    height: 8px;
+.supreme-footer a {
+    color: var(--text-color);
+    transition: opacity 0.2s;
 }
 
-/* --- Keyframe Animations --- */
-@keyframes snow-fall {
-    0% {
-        top: -10%;
+.supreme-footer a:hover {
+    opacity: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .logo-box span {
+        font-size: 2rem;
     }
 
-    100% {
-        top: 100%;
+    .supreme-nav {
+        gap: 1.2rem;
+        margin-bottom: 4rem;
     }
-}
-
-@keyframes snow-shake {
-    0% {
-        transform: translateX(0px);
-    }
-
-    50% {
-        transform: translateX(60px);
-    }
-
-    100% {
-        transform: translateX(0px);
-    }
-}
-
-/* --- Random Positioning & Delays for Small Snow --- */
-.snowing .small:nth-child(1) {
-    left: 210px;
-    animation-delay: 9s, .3s;
-}
-
-.snowing .small:nth-child(2) {
-    left: 400px;
-    animation-delay: 6s, .3s;
-}
-
-.snowing .small:nth-child(3) {
-    left: 720px;
-    animation-delay: 8s, .3s;
-}
-
-.snowing .small:nth-child(4) {
-    left: 140px;
-    animation-delay: 10s, .3s;
-}
-
-.snowing .small:nth-child(5) {
-    left: 500px;
-    animation-delay: 7s, .2s;
-}
-
-.snowing .small:nth-child(6) {
-    left: 150px;
-    animation-delay: 5.2s, .3s;
-}
-
-.snowing .small:nth-child(7) {
-    left: 200px;
-    animation-delay: 3.4s, .3s;
-}
-
-.snowing .small:nth-child(8) {
-    left: 70px;
-    animation-delay: 6.6s, .3s;
-}
-
-.snowing .small:nth-child(9) {
-    left: 380px;
-    animation-delay: 5.6s, .3s;
-}
-
-.snowing .small:nth-child(10) {
-    left: 130px;
-    animation-delay: 11s, .2s;
-}
-
-.snowing .small:nth-child(11) {
-    left: 20px;
-    animation-delay: 10.5s, .3s;
-}
-
-.snowing .small:nth-child(12) {
-    left: 620px;
-    animation-delay: 8s, .3s;
-}
-
-.snowing .small:nth-child(13) {
-    left: 400px;
-    animation-delay: 3.7s, 3s;
-}
-
-.snowing .small:nth-child(14) {
-    left: 500px;
-    animation-delay: 6s, .3s;
-}
-
-.snowing .small:nth-child(15) {
-    left: 660px;
-    animation-delay: 9s, .3s;
-}
-
-.snowing .small:nth-child(16) {
-    left: 610px;
-    animation-delay: 7.3s, .3s;
-}
-
-.snowing .small:nth-child(17) {
-    left: 20px;
-    animation-delay: 6.8s, 2s;
-}
-
-.snowing .small:nth-child(18) {
-    left: 670px;
-    animation-delay: 6.5s, .6s;
-}
-
-.snowing .small:nth-child(19) {
-    left: 210px;
-    animation-delay: 4s, .3s;
-}
-
-.snowing .small:nth-child(20) {
-    left: 20px;
-    animation-delay: -1.1s, -.1s;
-}
-
-/* --- Random Positioning & Delays for Medium Snow --- */
-.snowing .medium:nth-child(1) {
-    left: 300px;
-    animation-delay: 3.4s, 1s;
-}
-
-.snowing .medium:nth-child(2) {
-    left: 530px;
-    animation-delay: .2s, .1s;
-}
-
-.snowing .medium:nth-child(3) {
-    left: 340px;
-    animation-delay: 6s, 2s;
-}
-
-.snowing .medium:nth-child(4) {
-    left: 250px;
-    animation-delay: 3.4s, 3s;
-}
-
-.snowing .medium:nth-child(5) {
-    left: 400px;
-    animation-delay: 8.4s, .3s;
-}
-
-.snowing .medium:nth-child(6) {
-    left: 720px;
-    animation-delay: 7.7s, 1s;
-}
-
-.snowing .medium:nth-child(7) {
-    left: 350px;
-    animation-delay: 6s, 0.5s;
-}
-
-.snowing .medium:nth-child(8) {
-    left: 560px;
-    animation-delay: 1s, 0.5s;
-}
-
-.snowing .medium:nth-child(9) {
-    left: 10px;
-    animation-delay: 8.2s, 0.5s;
-}
-
-.snowing .medium:nth-child(10) {
-    left: 40px;
-    animation-delay: 3s, 1s;
-}
-
-.snowing .medium:nth-child(11) {
-    left: 220px;
-    animation-delay: .6s, 3s;
-}
-
-.snowing .medium:nth-child(12) {
-    left: 630px;
-    animation-delay: 9.4s, 2s;
-}
-
-.snowing .medium:nth-child(13) {
-    left: 420px;
-    animation-delay: 8s, 3s;
-}
-
-.snowing .medium:nth-child(14) {
-    left: 580px;
-    animation-delay: 2s, .3s;
-}
-
-.snowing .medium:nth-child(15) {
-    left: 420px;
-    animation-delay: 7s, 1s;
-}
-
-.snowing .medium:nth-child(16) {
-    left: 360px;
-    animation-delay: 8s, .3s;
-}
-
-.snowing .medium:nth-child(17) {
-    left: 90px;
-    animation-delay: 4.5s, 1s;
-}
-
-.snowing .medium:nth-child(18) {
-    left: 130px;
-    animation-delay: 8.2s, 1s;
-}
-
-.snowing .medium:nth-child(19) {
-    left: 150px;
-    animation-delay: 6.5s, .1s;
-}
-
-.snowing .medium:nth-child(20) {
-    left: 640px;
-    animation-delay: 10s, 1.5s;
 }
