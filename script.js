@@ -227,3 +227,47 @@ animateCursor();
             video.currentTime = 0; 
         });
     });
+
+// -- KU Confetti --
+document.addEventListener('DOMContentLoaded', () => {
+    const kuText = document.getElementById('ku-trigger');
+
+    if (kuText) {
+        let isExploding = false;
+        
+        kuText.addEventListener('mouseenter', (e) => {
+            // Prevent spamming if it's already happening
+            if (isExploding) return;
+            isExploding = true;
+
+
+            // 1. Save original text and swap to ROCK CHALK!
+            const originalText = kuText.innerText;
+            kuText.innerText = "ROCK CHALK!";
+            kuText.classList.add('ku-text');
+            
+
+            // 2. Get the position of the text for the confetti origin
+            const rect = kuText.getBoundingClientRect();
+            // Convert pixels to 0-1 range required by the library
+            const x = (rect.left + rect.width / 2) / window.innerWidth;
+            const y = (rect.top + rect.height / 2) / window.innerHeight;
+
+            // 3. Fire Red (#E8000D) and Blue (#0051BA) Confetti
+            confetti({
+                particleCount: 399,
+                spread: 999,
+                origin: { x: x, y: y },
+                colors: ['#E8000D', '#0051BA'],
+                disableForReducedMotion: true
+            });
+
+            // 4. Reset after 1 second
+            setTimeout(() => {
+                kuText.innerText = originalText;
+                kuText.style.color = ""; // Reset color
+                isExploding = false;
+            }, 1000);
+        });
+    }
+});
