@@ -38,50 +38,92 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxVideo = document.getElementById('lightbox-video');
 
-    const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+    if (lightbox) {
+        const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
 
-    lightboxTriggers.forEach(trigger => {
-        trigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            lightbox.style.display = 'flex'; // Use flex to center content
-            if (trigger.tagName === 'IMG') {
-                lightboxImg.style.display = 'block';
-                lightboxVideo.style.display = 'none';
-                lightboxImg.src = trigger.src;
-            } else if (trigger.tagName === 'VIDEO') {
-                lightboxImg.style.display = 'none';
-                lightboxVideo.style.display = 'block';
-                lightboxVideo.src = trigger.currentSrc || trigger.src;
+        lightboxTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                lightbox.style.display = 'flex';
+                if (trigger.tagName === 'IMG') {
+                    lightboxImg.style.display = 'block';
+                    lightboxVideo.style.display = 'none';
+                    lightboxImg.src = trigger.src;
+                } else if (trigger.tagName === 'VIDEO') {
+                    lightboxImg.style.display = 'none';
+                    lightboxVideo.style.display = 'block';
+                    lightboxVideo.src = trigger.currentSrc || trigger.src;
+                }
+            });
+        });
+
+        // Close lightbox when clicking on the background
+        lightbox.addEventListener('click', e => {
+            if (e.target !== lightboxImg && e.target !== lightboxVideo) {
+                lightbox.style.display = 'none';
+                lightboxVideo.pause();
+                lightboxVideo.currentTime = 0;
             }
         });
-    });
+    }
 
-    // Close lightbox when clicking on the background
-    lightbox.addEventListener('click', e => {
-        if (e.target !== lightboxImg && e.target !== lightboxVideo) {
-            lightbox.style.display = 'none';
-            lightboxVideo.pause();
-            lightboxVideo.currentTime = 0;
-        }
-    });
-
-    // Video on hover functionality for project cards
+// --- Montage Video Hover --- //
     const hoverContainers = document.querySelectorAll('.video-on-hover');
 
     hoverContainers.forEach(container => {
         const video = container.querySelector('video');
-        if (!video) return; // Safety check
+        if (!video) return;
+
+        let montageInterval;
+        const playDuration = 1400; // How long to play each clip (2 seconds)
+        const totalCuts = 5;       // How many "scenes" to show in the loop
 
         container.addEventListener('mouseenter', () => {
-            // The play() method returns a promise, which can cause an error in some browsers if interrupted.
-            // catch it to prevent console noise.
-            const startTime = container.getAttribute('data-start') || 49;
-            video.currentTime = startTime;
-            video.play().catch(error => {});
+            // Check if metadata is loaded so we know the duration
+            if (isNaN(video.duration)) {
+                console.log("Metadata not loaded yet");
+                video.play(); // Fallback to normal play
+                return;
+            }
+
+            const duration = video.duration;
+            let jumpGap = 10; // Default fallback
+
+            // 1. If video is short (< 10s), just play normally (no skipping)
+            if (duration < 10) {
+                video.currentTime = 0;
+            } else {
+                // 2. Otherwise, calculate the dynamic jump
+                jumpGap = duration / totalCuts;
+                
+                // Start from the beginning (or user defined start)
+                const startTime = parseFloat(container.getAttribute('data-start') || 0);
+                video.currentTime = startTime;
+            }
+            
+            video.muted = true;
+
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => console.log("Autoplay error:", e));
+            }
+
+            // 3. Only start the montage interval if the video is long enough
+            if (duration >= 10) {
+                montageInterval = setInterval(() => {
+                    if (video.currentTime + jumpGap >= duration) {
+                        video.currentTime = 0; // Loop back to start
+                    } else {
+                        video.currentTime += jumpGap; // Jump forward
+                    }
+                }, playDuration);
+            }
         });
 
         container.addEventListener('mouseleave', () => {
-            video.load();
+            clearInterval(montageInterval);
+            video.pause();
+            video.load(); // Reset to poster
         });
     });
 

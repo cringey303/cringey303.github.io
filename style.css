@@ -272,8 +272,19 @@ nav {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Kept colored (no filter) */
     transition: 0s;
+
+    /* custom image positions and zoom */
+    object-position: var(--img-pos, center top);
+    transform: scale(var(--img-zoom, 1));
+}
+
+.video-on-hover:hover img,
+.video-on-hover:hover video,
+.expand-video:hover img,
+.expand-video:hover video {
+    transform: scale(1) !important;
+    object-position: center center !important;
 }
 
 .project-tags {
@@ -449,4 +460,266 @@ body.link-hovered .cursor-dot {
     /* Stop forcing full screen height */
     padding-bottom: 4rem;
     /* Reduce bottom padding since footer is right below */
+}
+
+/* Container that covers the screen */
+.snowing {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    /* Ensures it sits on top */
+    pointer-events: none;
+    /* Allows you to click through the snow */
+    overflow: hidden;
+}
+
+/* --- Base Snow Styles --- */
+.snowing .small,
+.snowing .medium {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    top: -100px;
+    /* Start above screen */
+    animation: snow-fall 12s linear infinite, snow-shake 4s ease-in-out infinite;
+}
+
+.snowing .small {
+    width: 6px;
+    height: 6px;
+}
+
+.snowing .medium {
+    width: 8px;
+    height: 8px;
+}
+
+/* --- Keyframe Animations --- */
+@keyframes snow-fall {
+    0% {
+        top: -10%;
+    }
+
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes snow-shake {
+    0% {
+        transform: translateX(0px);
+    }
+
+    50% {
+        transform: translateX(60px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+/* --- Random Positioning & Delays for Small Snow --- */
+.snowing .small:nth-child(1) {
+    left: 210px;
+    animation-delay: 9s, .3s;
+}
+
+.snowing .small:nth-child(2) {
+    left: 400px;
+    animation-delay: 6s, .3s;
+}
+
+.snowing .small:nth-child(3) {
+    left: 720px;
+    animation-delay: 8s, .3s;
+}
+
+.snowing .small:nth-child(4) {
+    left: 140px;
+    animation-delay: 10s, .3s;
+}
+
+.snowing .small:nth-child(5) {
+    left: 500px;
+    animation-delay: 7s, .2s;
+}
+
+.snowing .small:nth-child(6) {
+    left: 150px;
+    animation-delay: 5.2s, .3s;
+}
+
+.snowing .small:nth-child(7) {
+    left: 200px;
+    animation-delay: 3.4s, .3s;
+}
+
+.snowing .small:nth-child(8) {
+    left: 70px;
+    animation-delay: 6.6s, .3s;
+}
+
+.snowing .small:nth-child(9) {
+    left: 380px;
+    animation-delay: 5.6s, .3s;
+}
+
+.snowing .small:nth-child(10) {
+    left: 130px;
+    animation-delay: 11s, .2s;
+}
+
+.snowing .small:nth-child(11) {
+    left: 20px;
+    animation-delay: 10.5s, .3s;
+}
+
+.snowing .small:nth-child(12) {
+    left: 620px;
+    animation-delay: 8s, .3s;
+}
+
+.snowing .small:nth-child(13) {
+    left: 400px;
+    animation-delay: 3.7s, 3s;
+}
+
+.snowing .small:nth-child(14) {
+    left: 500px;
+    animation-delay: 6s, .3s;
+}
+
+.snowing .small:nth-child(15) {
+    left: 660px;
+    animation-delay: 9s, .3s;
+}
+
+.snowing .small:nth-child(16) {
+    left: 610px;
+    animation-delay: 7.3s, .3s;
+}
+
+.snowing .small:nth-child(17) {
+    left: 20px;
+    animation-delay: 6.8s, 2s;
+}
+
+.snowing .small:nth-child(18) {
+    left: 670px;
+    animation-delay: 6.5s, .6s;
+}
+
+.snowing .small:nth-child(19) {
+    left: 210px;
+    animation-delay: 4s, .3s;
+}
+
+.snowing .small:nth-child(20) {
+    left: 20px;
+    animation-delay: -1.1s, -.1s;
+}
+
+/* --- Random Positioning & Delays for Medium Snow --- */
+.snowing .medium:nth-child(1) {
+    left: 300px;
+    animation-delay: 3.4s, 1s;
+}
+
+.snowing .medium:nth-child(2) {
+    left: 530px;
+    animation-delay: .2s, .1s;
+}
+
+.snowing .medium:nth-child(3) {
+    left: 340px;
+    animation-delay: 6s, 2s;
+}
+
+.snowing .medium:nth-child(4) {
+    left: 250px;
+    animation-delay: 3.4s, 3s;
+}
+
+.snowing .medium:nth-child(5) {
+    left: 400px;
+    animation-delay: 8.4s, .3s;
+}
+
+.snowing .medium:nth-child(6) {
+    left: 720px;
+    animation-delay: 7.7s, 1s;
+}
+
+.snowing .medium:nth-child(7) {
+    left: 350px;
+    animation-delay: 6s, 0.5s;
+}
+
+.snowing .medium:nth-child(8) {
+    left: 560px;
+    animation-delay: 1s, 0.5s;
+}
+
+.snowing .medium:nth-child(9) {
+    left: 10px;
+    animation-delay: 8.2s, 0.5s;
+}
+
+.snowing .medium:nth-child(10) {
+    left: 40px;
+    animation-delay: 3s, 1s;
+}
+
+.snowing .medium:nth-child(11) {
+    left: 220px;
+    animation-delay: .6s, 3s;
+}
+
+.snowing .medium:nth-child(12) {
+    left: 630px;
+    animation-delay: 9.4s, 2s;
+}
+
+.snowing .medium:nth-child(13) {
+    left: 420px;
+    animation-delay: 8s, 3s;
+}
+
+.snowing .medium:nth-child(14) {
+    left: 580px;
+    animation-delay: 2s, .3s;
+}
+
+.snowing .medium:nth-child(15) {
+    left: 420px;
+    animation-delay: 7s, 1s;
+}
+
+.snowing .medium:nth-child(16) {
+    left: 360px;
+    animation-delay: 8s, .3s;
+}
+
+.snowing .medium:nth-child(17) {
+    left: 90px;
+    animation-delay: 4.5s, 1s;
+}
+
+.snowing .medium:nth-child(18) {
+    left: 130px;
+    animation-delay: 8.2s, 1s;
+}
+
+.snowing .medium:nth-child(19) {
+    left: 150px;
+    animation-delay: 6.5s, .1s;
+}
+
+.snowing .medium:nth-child(20) {
+    left: 640px;
+    animation-delay: 10s, 1.5s;
 }
