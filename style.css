@@ -95,6 +95,7 @@ a:hover {
     background-color: var(--text-main);
     color: var(--bg-color);
     text-decoration: none;
+    cursor: none;
 }
 
 /* --- Layout (Updated to Full Width) --- */
@@ -371,6 +372,7 @@ footer p {
 body.link-hovered .cursor-dot {
     width: 30px;
     height: 30px;
+    cursor: none;
 }
 
 @media (max-width: 768px) {
