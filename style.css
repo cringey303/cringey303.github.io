@@ -3,7 +3,7 @@
 :root {
     --bg-color: #000000;
     --text-color: rgb(255,255,255);
-    --supreme-red: #DA291C;
+    --supreme-red: #ED1C24;
     --font-mono: 'Courier New', Courier, monospace;
     --font-size: 12px;
 }
@@ -26,6 +26,7 @@ body {
     text-align: left;
 }
 
+/* Logo */
 .supreme-container {
     display: flex;
     flex-direction: column;
@@ -35,7 +36,12 @@ body {
 .logo-box {
     align-self: center;
     margin-bottom: 0.8rem;
-    font-size: large;
+    display: inline-block;
+}
+
+.svg-logo {
+    height: 60px;
+    fill: var(--supreme-red);
 }
 
 /* --- Time --- */
