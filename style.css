@@ -95,7 +95,7 @@ a:hover {
     background-color: var(--text-main);
     color: var(--bg-color);
     text-decoration: none;
-    cursor: none;
+    cursor: none !important;
 }
 
 /* --- Layout (Updated to Full Width) --- */
