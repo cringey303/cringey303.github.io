@@ -1,4 +1,4 @@
-# Personal Portfolio Website - Lucas Root
+# Portfolio Website
 
 Live at <a href="https://lucasroot.org" target="_blank" rel="noopener">lucasroot.org</a>.
 
