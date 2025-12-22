@@ -56,6 +56,44 @@ body {
     margin-top: 1rem;
 }
 
+.arrow {
+    /* source: codepen.io/iam_aspencer/pen/ROraQd */
+    position: absolute;
+    z-index: 2;
+    bottom: 70px;
+    left: calc(50% - 1px);
+    width: 3px;
+    height: 25px;
+    background: white;
+
+    animation: bounce 1s cubic-bezier(.19, .38, 0, 1) infinite;
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        bottom: 0;
+        left: -6px;
+        border-bottom: solid white 3px;
+        border-right: solid white 3px;
+
+        transform: rotate(45deg);
+    }
+} 
+
+/* arrow animation */
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(-4px);
+    }
+
+    50% {
+        transform: translateY(4px);
+    }
+}
 /* --- Typography --- */
 h1,
 h2,
@@ -164,9 +202,10 @@ nav {
     width: 0%;
 }
 
-/* --- Location & KU Text --- */
+/* --- Location --- */
 .location-wrapper {
     margin-top: 1rem;
+    width: fit-content;
 }
 
 .location-wrapper:hover {

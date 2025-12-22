@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
             body.classList.remove('link-hovered');
         });
     });
-    
+
     //custom Cursor integration
     snake.addEventListener('mouseenter', () => body.classList.add('link-hovered'));
     snake.addEventListener('mouseleave', () => body.classList.remove('link-hovered'));
@@ -246,13 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
             kuText.classList.add('ku-text');
             
 
-            // 2. Get the position of the text for the confetti origin
+            // get position of the text for confetti origin
             const rect = kuText.getBoundingClientRect();
-            // Convert pixels to 0-1 range required by the library
+            // convert pixels to 0-1 range required by the library
             const x = (rect.left + rect.width / 2) / window.innerWidth;
             const y = (rect.top + rect.height / 2) / window.innerHeight;
 
-            // 3. Fire Red (#E8000D) and Blue (#0051BA) Confetti
             confetti({
                 particleCount: 399,
                 spread: 999,
@@ -261,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 disableForReducedMotion: true
             });
 
-            // 4. Reset after 1 second
+            // reset after 1 second
             setTimeout(() => {
                 kuText.innerText = originalText;
                 kuText.style.color = ""; // Reset color
