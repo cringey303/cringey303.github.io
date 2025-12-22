@@ -3,13 +3,17 @@
 :root {
     --bg-color: #111111;
     --text-main: #e0e0e0;
-    --accent: #254fce;
+    --accent: #ED1C24;
     --border: #333333;
     --card-bg: #000000;
     --font-main: 'Courier New', Courier, monospace;
+    --logo-size: 55px;
 }
 
-*,
+* {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
 *::before,
 *::after {
     box-sizing: border-box;
@@ -41,26 +45,23 @@ body {
 }
 
 .hero-content {
-    position: relative;
+    position: absolute;
     z-index: 10;
+    padding-bottom: 5rem;
 }
 
 .hero-content .subtitle {
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 1rem;
-}
-
-.hero-content .description {
-    max-width: 600px;
-    margin-top: 1rem;
+    margin-top: 0;
 }
 
 .arrow {
     /* source: codepen.io/iam_aspencer/pen/ROraQd */
     position: absolute;
     z-index: 2;
-    bottom: 70px;
+    bottom: 130px;
     left: calc(50% - 1px);
     width: 3px;
     height: 25px;
@@ -94,6 +95,7 @@ body {
         transform: translateY(4px);
     }
 }
+
 /* --- Typography --- */
 h1,
 h2,
@@ -109,7 +111,7 @@ h3 {
 h1 {
     font-size: 2.5rem;
     border-bottom: 2px solid var(--accent);
-    margin-top: 10vh;
+    margin-top: 0vh;
 }
 
 h2 {
@@ -126,13 +128,12 @@ p {
 
 a {
     color: var(--text-main);
-    text-decoration: underline;
+    text-decoration: none;
     text-decoration-thickness: 1px;
 }
 
 a:hover {
-    background-color: var(--text-main);
-    color: var(--bg-color);
+    background-color: var(--accent);
     text-decoration: none;
     cursor: none !important;
 }
@@ -180,15 +181,15 @@ nav {
 }
 
 .nav-logo svg {
-    height: 25px;
+    height: var(--logo-size);
     fill: var(--text-main);
 }
 
 /* --- Scroll Progress Bar (Added) --- */
 .progress-container {
     position: fixed;
-    /* Adjust top to sit right under header border (approx 46px) */
-    top: 42px;
+    
+    top: calc(var(--logo-size) + 17px);
     left: 0;
     width: 100%;
     height: 4px;
@@ -343,7 +344,6 @@ nav {
     padding: 2px 8px;
     font-size: 0.8rem;
     color: var(--text-main);
-    /* Changed from muted for better readability on black */
 }
 
 .project-links {
