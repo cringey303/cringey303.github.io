@@ -2,7 +2,7 @@
 
 :root {
     --bg-color: #000000;
-    --text-color: rgb(255,255,255);
+    --text-main: rgb(255,255,255);
     --supreme-red: #ED1C24;
     --font-mono: 'Courier New', Courier, monospace;
     --font-size: 12px;
@@ -23,7 +23,7 @@
 
 body {
     background-color: var(--bg-color);
-    color: var(--text-color);
+    color: var(--text-main);
     font-family: var(--font-mono);
     font-size: var(--font-size);
     height: 100vh;
@@ -69,7 +69,7 @@ body {
 }
 
 .supreme-nav a {
-    color: var(--text-color);
+    color: var(--text-main);
     text-decoration: none;
     font-size: var(--font-size);
     padding: 2px;
@@ -77,9 +77,23 @@ body {
 
 .supreme-nav a:hover {
     background-color: var(--supreme-red);
-    color: var(--text-color);
+    color: var(--text-main);
     text-decoration: none;
 }
+
+.supreme-nav a.disabled {
+    cursor: not-allowed;
+    opacity: .5;
+}
+.supreme-nav a.disabled:hover {
+    font-size: 0;
+    background-color: transparent !important;
+}
+.supreme-nav a.disabled:hover::after {
+    content: attr(data-replace);
+    font-size: 12px;
+}
+
 
 /* --- Footer Icons --- */
 .supreme-footer {
