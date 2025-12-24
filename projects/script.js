@@ -258,6 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // const toggleSnow = document.getElementById('toggle-snow');
 // if (toggleSnow) {
 //     toggleSnow.addEventListener('click', e => {
-        
+    
 //     });
 // }
+
+})
