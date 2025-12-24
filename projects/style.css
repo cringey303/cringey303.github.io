@@ -236,6 +236,7 @@ nav {
 
 .ku-text {
     font-size: x-large;
+    text-decoration: underline;
     background: linear-gradient(90deg,
             #E8000D 0%,
             #0051BA 25%,

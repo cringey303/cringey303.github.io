@@ -162,10 +162,8 @@ function scrollProgress() {
 
 // --- Custom Cursor Logic ---
 const cursorDot = document.querySelector('.cursor-dot');
-const cursorCircle = document.querySelector('.cursor-circle');
 
 let dotX = 0, dotY = 0;
-let circleX = 0, circleY = 0;
 
 window.addEventListener('mousemove', (e) => {
     dotX = e.clientX;
@@ -173,18 +171,8 @@ window.addEventListener('mousemove', (e) => {
 });
 
 const animateCursor = () => {
-    // Move dot instantly
     cursorDot.style.left = `${dotX}px`;
     cursorDot.style.top = `${dotY}px`;
-
-    // Move circle with a delay (easing/lerping)
-    // The closer the divisor (e.g., 8), the faster the trail
-    circleX += (dotX - circleX) / 8;
-    circleY += (dotY - circleY) / 8;
-
-    cursorCircle.style.left = `${circleX}px`;
-    cursorCircle.style.top = `${circleY}px`;
-
     requestAnimationFrame(animateCursor);
 };
 
@@ -212,7 +200,6 @@ simpleVideoContainers.forEach(container => {
 });
 
 // -- KU Confetti --
-document.addEventListener('DOMContentLoaded', () => {
     const kuText = document.getElementById('ku-trigger');
 
     if (kuText) {
@@ -222,7 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Prevent spamming if it's already happening
             if (isExploding) return;
             isExploding = true;
-
 
             // 1. Save original text and swap to ROCK CHALK!
             const originalText = kuText.innerText;
@@ -237,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const y = (rect.top + rect.height / 2) / window.innerHeight;
 
             confetti({
-                particleCount: 399,
+                particleCount: 199,
                 spread: 999,
                 origin: { x: x, y: y },
                 colors: ['#E8000D', '#0051BA'],
@@ -251,8 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 isExploding = false;
             }, 1000);
         });
-    }
-});
+    };
 
 /* TODO: toggle snow */
 // const toggleSnow = document.getElementById('toggle-snow');
