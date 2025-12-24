@@ -558,6 +558,12 @@ body.link-hovered .cursor-dot {
     /* Reduce bottom padding since footer is right below */
 }
 
+/* -- Snow -- */
+.toggle-snow {
+    position: absolute;
+    
+}
+
 /* Container that covers the screen */
 .snowing {
     position: absolute;
