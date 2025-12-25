@@ -134,8 +134,9 @@ h3 {
     text-transform: uppercase;
     margin-bottom: 1rem;
     border-bottom: 1px solid var(--text-main);
-    display: inline-block;
+    display: block;
     padding-bottom: 5px;
+    width: fit-content;
 }
 
 h1 {
@@ -418,7 +419,7 @@ a.ku-link:hover {
 
 /* University Header Info */
 .education-header {
-    margin-bottom: 2rem;
+    display: inline;
 }
 
 .grad-date {
