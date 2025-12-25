@@ -1,4 +1,4 @@
-/* style.css - Final Redesign */
+/* style.css */
 
 :root {
     --bg-color: #111111;
@@ -32,6 +32,19 @@ body {
     font-family: var(--font-main);
     line-height: 1.4;
     cursor: none;
+    width: 100%;
+}
+
+main {
+    display: flex;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+section {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .hero {
@@ -154,15 +167,6 @@ a:hover {
     cursor: none !important;
 }
 
-/* --- Layout (Updated to Full Width) --- */
-section {
-    padding: 2rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-left: none;
-    min-height: 100vh;
-}
-
 /* --- Nav --- */
 header {
     position: fixed;
@@ -173,7 +177,7 @@ header {
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--text-main);
     z-index: 1000;
-    padding: 10px 0;
+    padding: 10px;
 }
 
 nav {
@@ -182,7 +186,6 @@ nav {
     padding: 0 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    align-items: center;
 }
 
 .nav-links {
@@ -296,7 +299,7 @@ a.ku-link:hover {
     margin-top: 2rem;
 }
 
-/* mobile bout page fixes */
+/* mobile about page fixes */
 @media (max-width: 768px) {
     
     .about-container {
@@ -323,6 +326,15 @@ a.ku-link:hover {
         height: auto;
         object-fit: cover;
     }    
+}
+
+/* force left align with block */
+@media (max-width: 768px) {
+    main {
+        max-width: 768px;
+        margin: 0;
+        display: block;
+    }
 }
 
 /* mobile projects: 2 columns */
