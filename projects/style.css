@@ -37,6 +37,7 @@ body {
 
 main {
     display: flex;
+    flex-direction: column;
     padding: 2rem;
     max-width: 1200px;
     margin: 0 auto;
@@ -55,6 +56,7 @@ section {
     justify-content: left;
     align-items: center;
     text-align: left;
+    width: 100%;
 }
 
 .hero-content {
@@ -325,7 +327,7 @@ a.ku-link:hover {
     }
 
     .about-text {
-        width: 110%;
+        width: 100%;
         overflow: visible;
     }
 
@@ -629,18 +631,16 @@ body.link-hovered .cursor-dot {
     display: flex;
     align-items: center;
     gap: 3rem;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 .about-text {
     flex: 1;
-    /* Allows the text block to take up remaining space */
 }
 
 .about-images {
     flex: 0 0 40%;
-    /* Sets the image container to be about 40% of the width */
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -667,12 +667,17 @@ body.link-hovered .cursor-dot {
 
 /* -- Snow -- */
 .toggle-snow {
+    padding-left: 2px;
     position: absolute;
     bottom: 120px;
+    z-index: 20;
     opacity: .5;
 
     &:hover {
-        opacity: .7;
+        opacity: 1;
+        background-color: var(--accent);
+        padding-left: 2px;
+        padding-right: 2px;
     }
 }
 
@@ -687,6 +692,10 @@ body.link-hovered .cursor-dot {
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
+}
+
+.snowing.hidden {
+    display: none;
 }
 
 /* --- Base Snow Styles --- */
@@ -940,4 +949,3 @@ body.link-hovered .cursor-dot {
         animation-delay: 10s, 1.5s;
     }
 }
-

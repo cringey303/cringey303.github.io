@@ -118,7 +118,7 @@ hoverContainers.forEach(container => {
 });
 
 // --- Cursor link hover effect ---
-const interactiveElements = document.querySelectorAll('a, .btn, .lightbox-trigger, .nav-logo');
+const interactiveElements = document.querySelectorAll('a, .btn, .lightbox-trigger, .nav-logo, .toggle-snow');
 const body = document.querySelector('body');
 
 interactiveElements.forEach(el => {
@@ -196,7 +196,7 @@ simpleVideoContainers.forEach(container => {
 
             if (typeof confetti === 'function') {
                 confetti({
-                    particleCount: 199,
+                    particleCount: 99999,
                     spread: 999,
                     origin: { x: x, y: y },
                     colors: ['#E8000D', '#0051BA'],
@@ -213,13 +213,13 @@ simpleVideoContainers.forEach(container => {
         });
     };
 
-/* TODO: toggle snow */
-// const toggleSnow = document.getElementById('toggle-snow');
-// if (toggleSnow) {
-//     toggleSnow.addEventListener('click', e => {
-    
-//     });
-// }
+    /* toggle snow */
+    const toggleSnow = document.getElementById('toggle-snow');
+    if (toggleSnow) {
+        toggleSnow.addEventListener('click', () => {
+            document.querySelector('.snowing').classList.toggle('hidden');
+        });
+    }
 
 });
 
