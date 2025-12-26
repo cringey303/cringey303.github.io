@@ -1,37 +1,27 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-links a');
+    
+// --- Automatic Page Highlighting --- 
+const currentPath = window.location.pathname
+    .replace(/\/$/, "")
+    .replace("index.html", "")
+    .replace(".html", "");
 
-    const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.6 // 60% of the section must be visible
-    };
+const navLinks = document.querySelectorAll('.nav-links a');
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Remove active class from all nav links
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                });
-
-                // Find the corresponding nav link and add active class
-                const id = entry.target.getAttribute('id');
-                const activeLink = document.querySelector(`.nav-links a[href="#${id}"]`);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
-            }
-        });
-    }, options);
-
-    // Observe each section
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+navLinks.forEach(link => {
+    // 2. Clean the link's path the exact same way
+    const linkPath = link.getAttribute('href')
+        .replace(/\/$/, "")
+        .replace("index.html", "")
+        .replace(".html", "");
+    
+    // 3. Compare the cleaned versions
+    if (linkPath === currentPath) {
+        link.classList.add('active');
+    }
+});
 
 // --- Lightbox functionality --- //
 const lightbox = document.getElementById('lightbox');
@@ -140,43 +130,25 @@ interactiveElements.forEach(el => {
     });
 });
 
-// --- Scroll Progress Bar Logic ---
-window.onscroll = function() {
-    scrollProgress();
-};
-
-function scrollProgress() {
-    //get current scroll position
-    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    
-    // get total scrollable height and viewport height
-    var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-    var viewportHeight = document.documentElement.clientHeight
-
-    //calculate percentage scrolled
-    var scrolled = (scrollTop/(scrollHeight - viewportHeight)) * 100;
-
-    //set width of progress bar
-    document.getElementById("progressBar").style.width = scrolled + "%"
-}
-
 // --- Custom Cursor Logic ---
 const cursorDot = document.querySelector('.cursor-dot');
 
-let dotX = 0, dotY = 0;
+if (cursorDot) {
+    let dotX = 0, dotY = 0;
 
-window.addEventListener('mousemove', (e) => {
-    dotX = e.clientX;
-    dotY = e.clientY;
-});
+    window.addEventListener('mousemove', (e) => {
+        dotX = e.clientX;
+        dotY = e.clientY;
+    });
 
-const animateCursor = () => {
-    cursorDot.style.left = `${dotX}px`;
-    cursorDot.style.top = `${dotY}px`;
-    requestAnimationFrame(animateCursor);
-};
+    const animateCursor = () => {
+        cursorDot.style.left = `${dotX}px`;
+        cursorDot.style.top = `${dotY}px`;
+        requestAnimationFrame(animateCursor);
+    };
 
-animateCursor();
+    animateCursor();
+}
 
 // -- Video Hover (About Section) ---
 const simpleVideoContainers = document.querySelectorAll('.hover-trigger');
@@ -222,13 +194,15 @@ simpleVideoContainers.forEach(container => {
             const x = (rect.left + rect.width / 2) / window.innerWidth;
             const y = (rect.top + rect.height / 2) / window.innerHeight;
 
-            confetti({
-                particleCount: 199,
-                spread: 999,
-                origin: { x: x, y: y },
-                colors: ['#E8000D', '#0051BA'],
-                disableForReducedMotion: true
-            });
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 199,
+                    spread: 999,
+                    origin: { x: x, y: y },
+                    colors: ['#E8000D', '#0051BA'],
+                    disableForReducedMotion: true
+                });
+            }
 
             // reset after 1 second
             setTimeout(() => {
@@ -247,4 +221,28 @@ simpleVideoContainers.forEach(container => {
 //     });
 // }
 
-})
+});
+
+// --- Scroll Progress Bar Logic ---
+window.onscroll = function() {
+    scrollProgress();
+};
+
+function scrollProgress() {
+    //get current scroll position
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    
+    // get total scrollable height and viewport height
+    var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    var viewportHeight = document.documentElement.clientHeight
+
+    // prevent divide by zero if page is short
+    if (scrollHeight - viewportHeight <= 0) return;
+
+    //calculate percentage scrolled
+    var scrolled = (scrollTop/(scrollHeight - viewportHeight)) * 100;
+
+    //set width of progress bar
+    const bar = document.getElementById("progressBar");
+    if (bar) bar.style.width = scrolled + "%";
+}

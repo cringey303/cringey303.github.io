@@ -189,10 +189,19 @@ nav {
     margin: 0 auto;
 }
 
+nav a.active {
+    background-color: var(--accent);
+}
+
 .nav-links {
     display: flex;
     gap: 2rem;
     list-style: none;
+
+    & a {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
 }
 
 .nav-logo {
