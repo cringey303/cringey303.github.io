@@ -291,7 +291,7 @@ header {
     width: 100%;
     background: rgba(17, 17, 17, 0.85);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--primary-text-color);
+    border-bottom: 1px solid var(--accent-color);
     z-index: 1000;
     padding: 10px;
 }
