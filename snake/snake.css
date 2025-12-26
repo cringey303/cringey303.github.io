@@ -13,6 +13,7 @@
     --apple-color: rgb(163, 61, 61);
     --trophy-color: rgb(197, 197, 31);
     --font-family: 'Press Start 2P';
+    --logo-size: 55px;
 }
 
 /* --- General Styles & Reset --- */
@@ -31,6 +32,7 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding-top: 5rem;
     text-align: center;
 }
 
@@ -282,6 +284,70 @@ input[type="text"]:focus {
 }
 #cancel-btn:hover { background-color: var(--danger-color-hover); }
 
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(17, 17, 17, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--primary-text-color);
+    z-index: 1000;
+    padding: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+nav a.active {
+    background-color: var(--accent-color);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo svg {
+    height: var(--logo-size);
+    fill: var(--accent-color);
+}
+
+.nav-logo:active svg {
+    transform: scale(0.95);
+    fill: var(--accent-color);
+    transition: 0.1s;
+}
+
+/* --- Raw Cursor --- */
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    background-color: var(--accent);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+}
+
+.cursor-circle {
+    display: none;
+}
+
+body.link-hovered .cursor-dot {
+    width: 30px;
+    height: 30px;
+    cursor: none;
+}
+
 /* Mobile */
 @media (max-width: 768px) {
     .main-layout {
@@ -315,5 +381,16 @@ input[type="text"]:focus {
         max-width: 400px;
         height: 300px;
         max-height: 300px;
+    }
+}
+
+/* remove nav links on mobile */
+@media (max-width: 540px) {
+    .nav-links {
+        display: none;
+    }
+
+    nav {
+        justify-content: center;
     }
 }
