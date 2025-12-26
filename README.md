@@ -8,6 +8,7 @@ Education
 
 Misc
 - Remove mobile nav bar options
+- Snake mobile optimization
 
 
 ## Home
