@@ -196,7 +196,7 @@ simpleVideoContainers.forEach(container => {
 
             if (typeof confetti === 'function') {
                 confetti({
-                    particleCount: 99999,
+                    particleCount: 99,
                     spread: 999,
                     origin: { x: x, y: y },
                     colors: ['#E8000D', '#0051BA'],
