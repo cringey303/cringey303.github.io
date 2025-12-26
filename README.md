@@ -3,16 +3,12 @@ Live at <a href="https://lucasroot.org" target="_blank" rel="noopener">lucasroot
 Deployed branch: supreme
 
 ### To-do:
-Homepage
-- Raise homepage menu higher
-- Finish contact page
-
 Education
 - Add coursework
-- Improve header layouts for less whitespace
 
 Misc
 - Remove mobile nav bar options
+- Snake mobile optimization
 
 
 ## Home
