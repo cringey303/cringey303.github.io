@@ -222,6 +222,12 @@ nav a.active {
     fill: var(--text-main);
 }
 
+.nav-logo:active svg {
+    transform: scale(0.95);
+    fill: var(--accent);
+    transition: 0.1s;
+}
+
 /* --- Scroll Progress Bar (Added) --- */
 .progress-container {
     position: fixed;
@@ -352,6 +358,17 @@ a.ku-link:hover {
         max-width: 768px;
         margin: 0;
         display: block;
+    }
+}
+
+/* remove nav links on mobile */
+@media (max-width: 540px) {
+    .nav-links {
+        display: none;
+    }
+
+    nav {
+        justify-content: center;
     }
 }
 
