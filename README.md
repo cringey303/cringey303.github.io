@@ -7,7 +7,6 @@ Education
 - Add coursework
 
 Misc
-- Remove mobile nav bar options
 - Snake mobile optimization
 
 
