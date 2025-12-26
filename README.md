@@ -6,10 +6,6 @@ Deployed branch: supreme
 Education
 - Add coursework
 
-Misc
-- Snake mobile optimization
-
-
 ## Home
 <img width="605" height="624" alt="Screenshot 2025-12-25 at 14 57 18" src="https://github.com/user-attachments/assets/31a97db8-18dd-4123-86c7-d93903877865" />
 
