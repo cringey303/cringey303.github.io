@@ -3,7 +3,7 @@
 :root {
     --bg-color: #000000;
     --text-main: rgb(255,255,255);
-    --supreme-red: #ED1C24;
+    --supreme-red: rebeccapurple;
     --font-mono: 'Courier New', Courier, monospace;
     --font-size: 12px;
 }

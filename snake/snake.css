@@ -4,8 +4,8 @@
     --bg-color: #121212;
     --primary-text-color: #e0e0e0;
     --secondary-text-color: #a0a0a0;
-    --accent-color: #007bff;
-    --accent-color-hover: #0056b3;
+    --accent-color: rebeccapurple;
+    --accent-color-hover: rgba(102, 51, 153, 0.746);
     --danger-color: #dc3545;
     --danger-color-hover: rgb(145, 36, 47);
     --card-bg-color: #1e1e1e;
