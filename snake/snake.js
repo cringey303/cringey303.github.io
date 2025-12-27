@@ -49,7 +49,7 @@ const leaderboardList = document.getElementById("leaderboard-list");
 //showHighScoreForm(); //debug
 
 //colors
-const snakeColor = '#007bff';
+const snakeColor = '#663399';
 const appleColor = 'rgb(163, 61, 61)';
 
 const GRID_SIZE = 20;

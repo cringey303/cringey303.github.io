@@ -197,7 +197,7 @@ nav {
     margin: 0 auto;
 }
 
-nav a.active {
+nav a.active:not(.nav-logo) {
     background-color: var(--accent);
 }
 
@@ -217,15 +217,25 @@ nav a.active {
     align-items: center;
 }
 
+.nav-logo:hover {
+    background-color: transparent !important;
+}
+
 .nav-logo svg {
     height: var(--logo-size);
-    fill: var(--text-main);
+    fill: var(--accent);
+    background-color: none !important;
+    &:hover {
+        transform: translateY(-2.5px);
+        background-color: transparent !important;
+    }
 }
 
 .nav-logo:active svg {
     transform: scale(0.95);
     fill: var(--accent);
     transition: 0.1s;
+    background-color: transparent !important;
 }
 
 /* --- Scroll Progress Bar (Added) --- */

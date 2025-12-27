@@ -4,8 +4,8 @@
     --bg-color: #121212;
     --primary-text-color: #e0e0e0;
     --secondary-text-color: #a0a0a0;
-    --accent-color: rebeccapurple;
-    --accent-color-hover: rgba(102, 51, 153, 0.746);
+    --accent: rebeccapurple;
+    --accent-hover: rgba(102, 51, 153, 0.746);
     --danger-color: #dc3545;
     --danger-color-hover: rgb(145, 36, 47);
     --card-bg-color: #1e1e1e;
@@ -91,7 +91,7 @@ h1 {
 .leaderboard-container h3 {
     margin-top: 0;
     text-align: center;
-    color: var(--accent-color);
+    color: var(--accent);
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 10px;
     margin-bottom: 10px;
@@ -144,7 +144,7 @@ h1 {
 /* ---Canvas--- */
 canvas {
     background-color: #1e1e1e;
-    border: 2px solid var(--accent-color);
+    border: 2px solid var(--accent);
     border-radius: 4px;
     box-shadow: 0 0 11px rgba(0, 123, 255, 0.2);
     display: block;
@@ -181,7 +181,7 @@ canvas {
     background-color: rgba(30, 30, 30, 0.95);
     padding: 25px;
     border-radius: 8px;
-    border: 2px solid var(--accent-color);
+    border: 2px solid var(--accent);
     width: 85%;
     box-shadow: 0 0 20px rgba(0,0,0,0.8);
     pointer-events: auto;
@@ -210,7 +210,7 @@ input[type="text"] {
     outline: none;
 }
 input[type="text"]:focus {
-    border-color: var(--accent-color);
+    border-color: var(--accent);
 }
 .form-buttons {
     display: flex;
@@ -252,7 +252,7 @@ input[type="text"]:focus {
 .btn:hover { transform: translateY(-2px); }
 
 #start-btn, #submit-score-btn {
-    background-color: var(--accent-color);
+    background-color: var(--accent);
     color: white;
     z-index: 10;
     pointer-events: auto;
@@ -260,12 +260,12 @@ input[type="text"]:focus {
 }
 
 #submit-score-btn {
-    background-color: var(--accent-color);
+    background-color: var(--accent);
     flex: 1;
 }
 
 #start-btn:hover, #submit-score-btn:hover {
-    background-color: var(--accent-color-hover);
+    background-color: var(--accent-hover);
 }
 
 .btn-secondary {
@@ -291,7 +291,7 @@ header {
     width: 100%;
     background: rgba(17, 17, 17, 0.85);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--accent-color);
+    border-bottom: 1px solid var(--accent);
     z-index: 1000;
     padding: 10px;
 }
@@ -305,7 +305,7 @@ nav {
 }
 
 nav a.active {
-    background-color: var(--accent-color);
+    background-color: var(--accent);
 }
 
 .nav-logo {
@@ -315,13 +315,18 @@ nav a.active {
 
 .nav-logo svg {
     height: var(--logo-size);
-    fill: var(--accent-color);
+    fill: var(--accent);
+
+    &:hover {
+        transform: translateY(-2.5px);
+    }
 }
 
 .nav-logo:active svg {
     transform: scale(0.95);
-    fill: var(--accent-color);
+    fill: var(--accent);
     transition: 0.1s;
+    background-color: none;
 }
 
 /* --- Raw Cursor --- */
