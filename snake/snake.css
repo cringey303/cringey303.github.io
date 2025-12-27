@@ -34,6 +34,7 @@ body {
     margin: 0;
     padding-top: 5rem;
     text-align: center;
+    cursor: none;
 }
 
 .wrapper {
@@ -239,7 +240,7 @@ input[type="text"]:focus {
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
     font-weight: 600;
-    cursor: pointer;
+    cursor: none;
     border: none;
     font-family: inherit;
     text-decoration: none;
@@ -306,6 +307,7 @@ nav {
 
 nav a.active {
     background-color: var(--accent);
+    cursor: none;
 }
 
 .nav-logo {
@@ -319,6 +321,7 @@ nav a.active {
 
     &:hover {
         transform: translateY(-2.5px);
+        cursor: none;
     }
 }
 
@@ -355,6 +358,14 @@ body.link-hovered .cursor-dot {
 
 /* Mobile */
 @media (max-width: 768px) {
+    .cursor-dot {
+        display: none;
+    }
+
+    body {
+        cursor: auto;
+    }
+
     .main-layout {
         display: flex;
         gap: 1rem;

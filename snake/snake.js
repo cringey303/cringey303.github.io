@@ -459,3 +459,29 @@ document.addEventListener('touchend',function(e) {
         }
     }
 }, false);
+
+// --- Custom Cursor Logic ---
+const cursorDot = document.querySelector('.cursor-dot');
+
+if (cursorDot) {
+    let dotX = 0, dotY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+        dotX = e.clientX;
+        dotY = e.clientY;
+    });
+
+    const animateCursor = () => {
+        cursorDot.style.left = `${dotX}px`;
+        cursorDot.style.top = `${dotY}px`;
+        requestAnimationFrame(animateCursor);
+    };
+
+    animateCursor();
+}
+
+const interactiveElements = document.querySelectorAll('a, .btn, .nav-logo');
+interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('link-hovered'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('link-hovered'));
+});
