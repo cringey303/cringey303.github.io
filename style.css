@@ -50,6 +50,10 @@ body {
 .svg-logo {
     height: 60px;
     fill: var(--supreme-red);
+
+    &:hover {
+        cursor: help;
+    }
 }
 
 /* --- Time --- */

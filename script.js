@@ -34,7 +34,7 @@ updateSupremeClock(); // Run immediately on load
     if (logo) {
         logo.addEventListener('click', (e) => {
 
-            // get position of the text for confetti origin
+            // get position of the logo for confetti origin
             const rect = logo.getBoundingClientRect();
             // convert pixels to 0-1 range required by the library
             const x = (rect.left + rect.width / 2) / window.innerWidth;
@@ -45,7 +45,7 @@ updateSupremeClock(); // Run immediately on load
                     particleCount: 99,
                     spread: 999,
                     origin: { x: x, y: y },
-                    colors: ['rebeccapurple'],
+                    colors: ['#663399'],
                     disableForReducedMotion: true
                 });
             }
