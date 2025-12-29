@@ -426,7 +426,7 @@ a.ku-link:hover {
     transition: 0s;
 
     /* custom image positions and zoom */
-    object-position: var(--img-pos, center top);
+    transform-origin: var(--img-pos, center top);
     transform: scale(var(--img-zoom, 1));
 }
 
