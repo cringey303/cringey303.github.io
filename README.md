@@ -15,4 +15,4 @@ To-do: nothing (for now)
 ## Education
 <img width="932" height="782" alt="Screenshot 2025-12-25 at 14 58 48" src="https://github.com/user-attachments/assets/8e2f0e8c-dde1-4cac-856f-a03ee8e4145e" />
 
-and more... take a look for yourself
+and more... take a look for yourself!
