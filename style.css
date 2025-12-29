@@ -3,7 +3,7 @@
 :root {
     --bg-color: #000000;
     --text-main: rgb(255,255,255);
-    --supreme-red: rebeccapurple;
+    --main-theme: rebeccapurple;
     --font-mono: 'Courier New', Courier, monospace;
     --font-size: 12px;
 }
@@ -49,7 +49,7 @@ body {
 
 .svg-logo {
     height: 60px;
-    fill: var(--supreme-red);
+    fill: var(--main-theme);
 
     &:hover {
         cursor: help;
@@ -81,7 +81,7 @@ body {
 }
 
 .supreme-nav a:hover {
-    background-color: var(--supreme-red);
+    background-color: var(--main-theme);
     color: var(--text-main);
     text-decoration: none;
 }
@@ -114,4 +114,18 @@ body {
 
 .supreme-footer a:hover {
     color: rgb(255, 255, 255);
+}
+
+.why-purple {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: var(--font-size);
+    padding: 2px;
+}
+
+.why-purple:hover {
+    background-color: var(--main-theme);
 }
