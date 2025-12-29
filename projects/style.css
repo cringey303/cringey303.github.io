@@ -113,7 +113,7 @@ section {
     &:hover {
         background-color: white !important;
     }
-} 
+}
 
 /* arrow animation */
 @keyframes bounce {
@@ -241,7 +241,7 @@ nav a.active:not(.nav-logo) {
 /* --- Scroll Progress Bar (Added) --- */
 .progress-container {
     position: fixed;
-    
+
     top: calc(var(--logo-size) + 17px);
     left: 0;
     width: 100%;
@@ -335,7 +335,7 @@ a.ku-link:hover {
 
 /* mobile about page fixes */
 @media (max-width: 768px) {
-    
+
     .about-container {
         flex-direction: column;
         align-items: flex-start;
@@ -359,7 +359,7 @@ a.ku-link:hover {
         width: 50%;
         height: auto;
         object-fit: cover;
-    }    
+    }
 }
 
 /* force left align with block */
@@ -427,6 +427,8 @@ a.ku-link:hover {
 
     /* custom image positions and zoom */
     transform-origin: var(--img-pos, center top);
+    object-position: var(--obj-pos, center center);
+
     transform: scale(var(--img-zoom, 1));
 }
 
@@ -879,7 +881,7 @@ body.link-hovered .cursor-dot {
 
 /* --- Random Positioning & Delays for Medium Snow --- */
 .snowing .medium {
-        &:nth-child(1) {
+    &:nth-child(1) {
         left: 300px;
         animation-delay: 3.4s, 1s;
     }
