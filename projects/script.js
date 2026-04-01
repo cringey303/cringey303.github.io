@@ -246,3 +246,6 @@ function scrollProgress() {
     const bar = document.getElementById("progressBar");
     if (bar) bar.style.width = scrolled + "%";
 }
+
+// Auto-update copyright year
+document.getElementById('year').textContent = new Date().getFullYear();
