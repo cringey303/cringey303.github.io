@@ -4,22 +4,21 @@ function updateSupremeClock() {
     const clockElement = document.getElementById('supreme-clock');
     if (!clockElement) return;
 
-    const now = new Date();
+    const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Los_Angeles",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+    }).formatToParts(new Date());
 
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const year = now.getFullYear();
-
-    let hours = now.getHours();
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const ampm = hours >= 12 ? 'pm' : 'am';
-    
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-
+    const getPart = (type) => parts.find(p => p.type === type)?.value || "";
     const city = 'SF'; 
 
-    const timeString = `${month}/${day}/${year} ${hours}:${minutes}${ampm} ${city}`;
+    const timeString = `${getPart("month")}/${getPart("day")}/${getPart("year")} ${getPart("hour")}:${getPart("minute")}${getPart("dayPeriod").toLowerCase()} ${city}`;
 
     clockElement.innerText = timeString;
 }
