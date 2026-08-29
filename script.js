@@ -1,4 +1,6 @@
-// script.js
+// script.js — home ("Supreme") page behaviour.
+// Exposes window.initHomePage(); router.js calls it on load and after each
+// in-place navigation. Safe to call more than once.
 
 function updateSupremeClock() {
     const clockElement = document.getElementById('supreme-clock');
@@ -16,26 +18,25 @@ function updateSupremeClock() {
     }).formatToParts(new Date());
 
     const getPart = (type) => parts.find(p => p.type === type)?.value || "";
-    const city = 'SF'; 
+    const city = 'SF';
 
-    const timeString = `${getPart("month")}/${getPart("day")}/${getPart("year")} ${getPart("hour")}:${getPart("minute")}${getPart("dayPeriod").toLowerCase()} ${city}`;
-
-    clockElement.innerText = timeString;
+    clockElement.innerText =
+        `${getPart("month")}/${getPart("day")}/${getPart("year")} ` +
+        `${getPart("hour")}:${getPart("minute")}${getPart("dayPeriod").toLowerCase()} ${city}`;
 }
 
-// Update every second
-setInterval(updateSupremeClock, 1000);
-updateSupremeClock(); // Run immediately on load
+window.initHomePage = function initHomePage() {
+    // --- Clock ---
+    if (window.__supremeClockTimer) clearInterval(window.__supremeClockTimer);
+    updateSupremeClock();
+    window.__supremeClockTimer = setInterval(updateSupremeClock, 1000);
 
-// -- Logo Confetti --
+    // --- Logo Confetti ---
     const logo = document.getElementById('confetti');
-
-    if (logo) {
-        logo.addEventListener('click', (e) => {
-
-            // get position of the logo for confetti origin
+    if (logo && !logo.__wired) {
+        logo.__wired = true;
+        logo.addEventListener('click', () => {
             const rect = logo.getBoundingClientRect();
-            // convert pixels to 0-1 range required by the library
             const x = (rect.left + rect.width / 2) / window.innerWidth;
             const y = (rect.top + rect.height / 2) / window.innerHeight;
 
@@ -49,4 +50,11 @@ updateSupremeClock(); // Run immediately on load
                 });
             }
         });
-    };
+    }
+};
+
+// Standalone fallback: if router.js isn't present, self-initialise.
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.__spaRouter) return;
+    if (document.body.getAttribute('data-page') === 'home') window.initHomePage();
+});

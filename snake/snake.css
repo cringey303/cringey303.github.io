@@ -34,7 +34,6 @@ body {
     margin: 0;
     padding-top: 5rem;
     text-align: center;
-    cursor: none;
 }
 
 .wrapper {
@@ -240,7 +239,6 @@ input[type="text"]:focus {
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
     font-weight: 600;
-    cursor: none;
     border: none;
     font-family: inherit;
     text-decoration: none;
@@ -307,7 +305,6 @@ nav {
 
 nav a.active {
     background-color: var(--accent);
-    cursor: none;
 }
 
 .nav-logo {
@@ -321,7 +318,6 @@ nav a.active {
 
     &:hover {
         transform: translateY(-2.5px);
-        cursor: none;
     }
 }
 
@@ -332,40 +328,8 @@ nav a.active {
     background-color: none;
 }
 
-/* --- Raw Cursor --- */
-.cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 15px;
-    height: 15px;
-    background-color: var(--accent);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: difference;
-}
-
-.cursor-circle {
-    display: none;
-}
-
-body.link-hovered .cursor-dot {
-    width: 30px;
-    height: 30px;
-    cursor: none;
-}
-
 /* Mobile */
 @media (max-width: 768px) {
-    .cursor-dot {
-        display: none;
-    }
-
-    body {
-        cursor: auto;
-    }
-
     .main-layout {
         display: flex;
         gap: 1rem;

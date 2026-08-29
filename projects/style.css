@@ -31,7 +31,6 @@ body {
     color: var(--text-main);
     font-family: var(--font-main);
     line-height: 1.4;
-    cursor: none;
     width: 100%;
 }
 
@@ -173,7 +172,6 @@ a {
 a:hover {
     background-color: var(--accent);
     text-decoration: none;
-    cursor: none !important;
 }
 
 /* --- Nav --- */
@@ -311,7 +309,6 @@ a.ku-link:hover {
     color: var(--text-main);
     font-family: var(--font-main);
     text-decoration: none;
-    cursor: none;
     transition: 0s;
 }
 
@@ -587,39 +584,7 @@ footer p {
     font-size: 1.5rem;
 }
 
-/* --- Raw Cursor --- */
-.cursor-dot {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 15px;
-    height: 15px;
-    background-color: var(--accent);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: difference;
-}
-
-.cursor-circle {
-    display: none;
-}
-
-body.link-hovered .cursor-dot {
-    width: 30px;
-    height: 30px;
-    cursor: none;
-}
-
 @media (max-width: 768px) {
-    .cursor-dot {
-        display: none;
-    }
-
-    body {
-        cursor: auto;
-    }
-
     .hero-buttons {
         flex-direction: column;
     }
@@ -649,7 +614,6 @@ body.link-hovered .cursor-dot {
 }
 
 .about-images img.lightbox-trigger {
-    cursor: none;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 

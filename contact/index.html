@@ -13,12 +13,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
-<body>
+<body data-page="sub">
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>peekaboo
-    <div class="cursor-dot"></div>
-    <div class="cursor-circle"></div>
     <header>
         <nav>
             <a href="/" class="nav-logo">
@@ -62,6 +60,9 @@
         <p>&copy; <span id="year"></span> Lucas Root. All rights reserved.</p>
     </footer>
     
-    <script src="/projects/script.js"></script>
+    <script src="/script.js" defer></script>
+    <script src="/projects/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
+    <script src="/router.js" defer></script>
 </body>
 
