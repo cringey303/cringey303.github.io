@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+    Permanent resume URL: lucasroot.org/resume
+
+    This is the ONLY place the resume's filename appears. External links
+    (LinkedIn, GitHub profile, email signature, QR codes, anything printed)
+    point here and never need to change again. If the PDF is renamed or
+    moved, update the three marked spots below and every external link keeps
+    working.
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas Root — résumé</title>
+
+    <!-- FILENAME 1 of 3 — no-JS / pre-JS redirect. -->
+    <meta http-equiv="refresh" content="0; url=/content/lucasrootresume.pdf">
+
+    <!-- FILENAME 2 of 3 — canonical URL for search engines. -->
+    <link rel="canonical" href="https://lucasroot.org/content/lucasrootresume.pdf">
+    <link rel="icon" href="/content/LR_Logo.svg" type="image/x-icon">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Inter, system-ui, -apple-system, sans-serif;
+            font-size: 15px;
+            background: #fff;
+            color: #111;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body { background: #111; color: #eee; }
+        }
+
+        a { color: inherit; }
+    </style>
+</head>
+
+<body>
+    <!-- FILENAME 3 of 3 — visible fallback, and the href the script reads. -->
+    <p>Redirecting to <a id="pdf" href="/content/lucasrootresume.pdf">my résumé</a>&hellip;</p>
+
+    <script>
+        // replace() rather than assignment, so the back button returns to
+        // wherever the visitor came from instead of bouncing through here.
+        location.replace(document.getElementById("pdf").href);
+    </script>
+</body>
+
+</html>
