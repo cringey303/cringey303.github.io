@@ -69,7 +69,12 @@ fi
 
 printf '\n  Publishing to lucasroot.org\n'
 printf '    from  %s\n' "$src"
-printf '    size  %s KB\n\n' "$(( $(wc -c < "$src") / 1024 ))"
+printf '    size  %s KB\n' "$(( $(wc -c < "$src") / 1024 ))"
+
+# date -r reads a file's mtime on GNU and recent macOS; stat covers older macOS.
+fmt='%b %d, %Y at %I:%M %p'
+modified="$(date -r "$src" "+$fmt" 2>/dev/null || stat -f '%Sm' -t "$fmt" "$src")"
+printf '    last modified  %s\n\n' "$modified"
 
 if [ -z "$yes" ]; then
     # This pushes to the live site, so make it a deliberate keystroke.
